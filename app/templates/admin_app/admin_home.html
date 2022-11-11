@@ -222,55 +222,66 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Recent Sales <span>| Today</span></h5>
-
+                  <h1 class="card-title">Product List</h1>
                   <table class="table table-borderless datatable">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">ID</th>                     
+                        <th scope="col">GROUP</th>
+                        <th scope="col">ITEM TYPE</th>
+                        <th scope="col">SUPPLIER</th>
+                        <th scope="col">MANUFACTURER</th>
+                        <th scope="col">TITLE</th>
+                        <th scope="col">BARCODE</th>
+                        <th scope="col">ITEM SIZE</th>
+                        <th scope="col">ITEM COLOR</th>
+                        <th scope="col">PUR.PRICE</th>
+                        <th scope="col">PUR.TAX TYPE</th>
+                        <th scope="col">PUR.TAX</th>
+                        <th scope="col">SELL.PRICE</th>
+                        <th scope="col">SELL.TAX</th>
+                        <th scope="col">DISCOUNT PRICE</th>
+                        <th scope="col">DESCRIPTION</th>
+                        <th scope="col">BRAND</th>
+                        <th scope="col">CATEGORY</th>
+                        <th scope="col">ACTUAL MRP</th>
+                        <th scope="col">Prod.PUR DATE</th>
+                        <th scope="col">Prod.Mnf Date</th>
+                        <th scope="col">EXPIRY DATE</th>
+                        <th scope="col">ALERTMENT DATE</th>
+                        <th scope="col">PROD.IMG</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="#">#2457</a></th>
-                        <td>Brandon Jacob</td>
-                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                        <td>$64</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>Bridie Kessler</td>
-                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                        <td>$47</td>
-                        <td><span class="badge bg-warning">Pending</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2049</a></th>
-                        <td>Ashleigh Langosh</td>
-                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                        <td>$147</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Angus Grady</td>
-                        <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                        <td>$67</td>
-                        <td><span class="badge bg-danger">Rejected</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Raheem Lehner</td>
-                        <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                        <td>$165</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                    </tbody>
+                    {% for p in product_list %}
+                      <tbody>
+                        <tr>
+                          <td scope="row">{{ p.id }}</td>
+                          <td scope="row">{{ p.group }}</td>
+                          <td scope="row">{{ p.item_type }}</td>
+                          <td scope="row">{{ p.supplier }}</td>
+                          <td scope="row">{{ p.manufacturer }}</td>
+                          <td scope="row">{{ p.title }}</td>
+                          <td scope="row">{{ p.barcode }}</td>
+                          <td scope="row">{{ p.item_size }}</td>
+                          <td scope="row">{{ p.item_color }}</td>
+                          <td scope="row">{{ p.purchase_price }}</td>
+                          <td scope="row">{{ p.purchase_tax_type }}</td>
+                          <td scope="row">{{ p.purchase_tax }}</td>
+                          <td scope="row">{{ p.selling_price }}</td>
+                          <td scope="row">{{ p.selling_tax }}</td>
+                          <td scope="row">{{ p.discounted_price }}</td>
+                          <td scope="row">{{ p.description }}</td>
+                          <td scope="row">{{ p.brand }}</td>
+                          <td scope="row">{{ p.category }}</td>
+                          <td scope="row">{{ p.actual_mrp }}</td>
+                          <td scope="row">{{ p.product_perchase_date }}</td>
+                          <td scope="row">{{ p.manufacture_date }}</td>
+                          <td scope="row">{{ p.expiry_date }}</td>
+                          <td scope="row">{{ p.alertment_date }}</td>
+                          <td scope="row"><img src="{{ p.product_image.url }}" style="height: 45px;"></td>
+                        </tr>
+                      {% endfor %}
+                      </tbody> 
                   </table>
 
                 </div>
@@ -296,55 +307,37 @@
                 </div>
 
                 <div class="card-body pb-0">
-                  <h5 class="card-title">Top Selling <span>| Today</span></h5>
-
+                  
+                  <h1 class="card-title">Supplier List</h1>
                   <table class="table table-borderless">
                     <thead>
                       <tr>
-                        <th scope="col">Preview</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Sold</th>
-                        <th scope="col">Revenue</th>
-                      </tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">SUPPLIER CODE</th>
+                        <th scope="col">SUPPLIER</th>
+                        <th scope="col">ADDRESS</th>
+                        <th scope="col">CONTACT NO</th>
+                        <th scope="col">SUPPLIER EMAIL</th>
+                        <th scope="col">GSTIN NO</th>
+                        <th scope="col">STATE</th>
+                        <th scope="col">PIN</th>
+                    </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="{% static 'assetss/img/product-1.jpg' %}" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
-                        <td>$64</td>
-                        <td class="fw-bold">124</td>
-                        <td>$5,828</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="{% static 'assetss/img/product-2.jpg' %}" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
-                        <td>$46</td>
-                        <td class="fw-bold">98</td>
-                        <td>$4,508</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="{% static 'assetss/img/product-3.jpg' %}" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
-                        <td>$59</td>
-                        <td class="fw-bold">74</td>
-                        <td>$4,366</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="{% static 'assetss/img/product-4.jpg' %}" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
-                        <td>$32</td>
-                        <td class="fw-bold">63</td>
-                        <td>$2,016</td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img src="{% static 'assetss/img/product-5.jpg' %}" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
-                        <td>$79</td>
-                        <td class="fw-bold">41</td>
-                        <td>$3,239</td>
-                      </tr>
-                    </tbody>
+                    {% for sup in supplier_list %}
+                <tbody>
+                    <tr>
+                        <td scope="row">{{ sup.id }}</td>
+                        <td scope="row">{{ sup.supplier_code }}</td>
+                        <td scope="row">{{ sup.supplier }}</td>
+                        <td scope="row">{{ sup.address }}</td>
+                        <td scope="row">{{ sup.contact_no }}</td>
+                        <td scope="row">{{ sup.supplier_email }}</td>
+                        <td scope="row">{{ sup.gstin_no }}</td>
+                        <td scope="row">{{ sup.state }}</td>
+                        <td scope="row">{{ sup.pin }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
                   </table>
 
                 </div>
@@ -521,7 +514,7 @@
             </div>
 
             <div class="card-body pb-0">
-              <h5 class="card-title">Website Traffic <span>| Today</span></h5>
+              <h5 class="card-title">Store Traffic <span>| Today</span></h5>
 
               <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
 

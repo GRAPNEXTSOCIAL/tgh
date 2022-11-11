@@ -49,7 +49,9 @@ def login(request):
         return redirect('home')
 
 def dashboard(request):
-    return render(request, 'admin_app/admin_home.html')
+    product = Product.objects.all()
+    supplier = Supplier.objects.all()
+    return render(request, 'admin_app/admin_home.html', {'product_list':product, 'supplier_list':supplier})
 
 # Staff view
 def staff_dashboard(request):
@@ -785,3 +787,5 @@ def exit_bill(request):
 
 def bill_print(request):
     return render(request, 'bill_print.html')
+
+

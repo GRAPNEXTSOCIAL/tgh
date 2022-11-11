@@ -42,7 +42,7 @@ urlpatterns = [
 
     # for admin
     path('admin-home/', views.admin_home, name="admin-home"),
-    path('dashboard', views.dashboard, name="dashboard"), 
+    path('dashboard', views.dashboard, name="dashboard"),
 
     path('products', views.all_products, name="list-products"),
     path('delete/<int:id>/', views.delete_data, name='deletedata'),
