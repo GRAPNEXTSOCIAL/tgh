@@ -25,9 +25,9 @@ from django.core.exceptions import ValidationError
 
 
 def home(request):
-    # view = ProductView()
-    # return view.get(request)
-    return redirect('login')
+    view = ProductView()
+    return view.get(request)
+    # return redirect('login')
 # Admin Views
 
 class CustomLoginView(auth_views.LoginView):
@@ -366,13 +366,10 @@ def size_insert(request):
 class ProductView(View):
     def get(self, request):
         category_group = Itemgroup.objects.all()
+        category = Category.objects.all()
         product = Product.objects.all()
-        # food = Category.objects.filter(item_group_name=food)
         return render(request, 'app/home.html', {'product':product, 
-        'category_group':category_group,
-        # 'food':food,  
-        # 'fruits_nuts':fruits_nuts, 
-        # 'drinks':drinks
+        'category_group':category_group, 'category':category
         })
 
 # product details
