@@ -166,7 +166,8 @@ class ItemgroupModelAdmin(admin.ModelAdmin):
     list_display = ['id', 
     'item_group_code', 
     'item_group_name', 
-    'item_group_description'
+    'item_group_description', 
+    'item_group_image'
     ]
 
 @admin.register(Category)
@@ -174,7 +175,7 @@ class CategoryModelAdmin(admin.ModelAdmin):
     list_display = ['id', 
     'item_group_name', 
     'category_code', 
-    'category_name'
+    'category'
     ]
 
 @admin.register(Purchase)

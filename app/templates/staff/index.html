@@ -46,7 +46,7 @@
       <div class="d-flex align-items-center justify-content-between">
         <a href="{% url 'home' %}" class="logo d-flex align-items-center">
           <img src="{% static 'assetss/img/logo.png' %}" alt="">
-          <span class="d-none d-lg-block">Venus Daily Mart</span>
+          <span class="d-none d-lg-block">THE GROCERY HOUSE</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
       </div><!-- End Logo -->
@@ -90,75 +90,159 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="{% url 'staff_dashboard' %}">
+        <a class="nav-link " href="{% url 'dashboard' %}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
-
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Product</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-menu-button-wide"></i><span>PRODUCT COMPONENT</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{% url 'lists-products' %}">
-              <i class="bi bi-circle"></i><span>Products List</span>
+            <a href="{% url 'P-insert' %}">
+              <i class="bi bi-circle"></i><span>ADD PRODUCT</span>
             </a>
           </li>
           <li>
-            <a href="{% url 'Product-insert' %}">
-              <i class="bi bi-circle"></i><span>Add Product</span>
+            <a href="{% url 'list-products' %}">
+              <i class="bi bi-circle"></i><span>PRODUCT LIST</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'cat-insert' %}">
+              <i class="bi bi-grid"></i>
+              <span>ADD CATEGORY</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'list-category' %}">
+              <i class="bi bi-grid"></i>
+              <span>CATEGORY LIST</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'color-insert' %}">
+              <i class="bi bi-grid"></i>
+              <span>ADD COLOR</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'list-color' %}">
+              <i class="bi bi-grid"></i>
+              <span>COLOR LIST</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'size-insert' %}">
+              <i class="bi bi-grid"></i>
+              <span>ADD SIZE</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'list-size' %}">
+              <i class="bi bi-grid"></i>
+              <span>SIZE LIST</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'g-insert' %}">
+              <i class="bi bi-grid"></i>
+              <span>ADD GROUP</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'list-group' %}">
+              <i class="bi bi-grid"></i>
+              <span>GROUP LIST</span>
             </a>
           </li>
         </ul>
-      </li>
+      </li><!-- End Components Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Show Lists</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-journal-text"></i><span>TAX / COUPON</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{% url 'lists-carts' %}">
-              <i class="bi bi-circle"></i><span>Carts</span>
+            <a href="{% url 'tax-insert' %}">
+              <i class="bi bi-circle"></i><span>ADD TAX</span>
             </a>
           </li>
           <li>
-            <a href="{% url 'list-order_place' %}">
-              <i class="bi bi-circle"></i><span>Order Placed</span>
+            <a href="{% url 'list-tax' %}">
+              <i class="bi bi-circle"></i><span>TAX LIST</span>
             </a>
           </li>
           <li>
-            <a href="{% url 'list-customeress' %}">
-              <i class="bi bi-circle"></i><span>Customers</span>
+            <a href="{% url 'co-insert' %}">
+              <i class="bi bi-circle"></i><span>ADD COUPON</span>
             </a>
           </li>
           <li>
-            <a href="{% url 'list-user' %}">
-              <i class="bi bi-circle"></i><span>Users</span>
+            <a href="{% url 'list-coupons' %}">
+              <i class="bi bi-circle"></i><span>COUPON LIST</span>
             </a>
           </li>
-
         </ul>
       </li><!-- End Forms Nav -->
+      
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>SUPPLIER</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'supplier-insert' %}">
+              <i class="bi bi-circle"></i><span>ADD SUPPLIER</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'list-supplier' %}">
+              <i class="bi bi-circle"></i><span>SUPPLIER LIST</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>PURCHASE</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'purchase-insert' %}">
+              <i class="bi bi-circle"></i><span>ADD PURCHASE</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'list-purchase' %}">
+              <i class="bi bi-circle"></i><span>PURCHASE LIST</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Icons Nav -->
+
+      
       <li class="nav-item">
         <a class="nav-link collapsed" href="{% url 'list-bills' %}">
           <i class="bi bi-grid"></i>
           <span>Create Bill</span>
         </a>
       </li><!-- End Dashboard Nav -->
-
     </ul>
+
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Welcome.. to Staff Dashboard</h1>
+      <h1>Welcome.. to GRM Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
@@ -172,7 +256,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Venus Daily Mart</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>The Grocery House</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->

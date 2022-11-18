@@ -103,28 +103,8 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{% url 'list-products' %}">
-              <i class="bi bi-circle"></i><span>Products</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'list-carts' %}">
-              <i class="bi bi-circle"></i><span>Carts</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'list-customers' %}">
-              <i class="bi bi-circle"></i><span>Customers</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'list-order_placed' %}">
-              <i class="bi bi-circle"></i><span>Order Placed</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'list-users' %}">
-              <i class="bi bi-circle"></i><span>users</span>
+            <a href="{% url 'list-purchase' %}">
+              <i class="bi bi-circle"></i><span>PURCHASE LIST</span>
             </a>
           </li>
           <li>
@@ -141,7 +121,7 @@
         </ul>
       </li><!-- End Components Nav -->
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -167,25 +147,25 @@
             </a>
           </li>
         </ul>
-      </li><!-- End Forms Nav -->
+      </li>End Forms Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>BILLS</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
+            <a href="{% url 'success_bill' %}">
+              <i class="bi bi-circle"></i><span>SUCCESS BILLS</span>
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
+            <a href="{% url 'hold_boll' %}">
+              <i class="bi bi-circle"></i><span>HOLD BILLS</span>
             </a>
           </li>
         </ul>
-      </li><!-- End Tables Nav -->
+      </li> <!--End Tables Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{% url 'list-bills' %}">

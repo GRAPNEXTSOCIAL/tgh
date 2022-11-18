@@ -19,6 +19,7 @@
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="{% static 'app/css/styles.css' %}">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/fontawesome.min.css"> -->
 
     <title>The Grocery House | {% block title %} {% endblock title %} </title>
@@ -34,29 +35,6 @@
          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
            <li class="nav-item">
              <a class="nav-link active" aria-current="page" href="/">Home</a>
-           </li>
-           <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle text-white" href="#" id="Home&KitchenDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Home&Kitchen
-             </a>
-             <ul class="dropdown-menu" aria-labelledby="Home&KitchenDropdown">
-               <li><a class="dropdown-item" href="#">Kitchen Steelproducts</a></li>
-               <li><a class="dropdown-item" href="#">Grocery</a></li>
-               <li><a class="dropdown-item" href="#">Vegitables</a></li>
-               <li><a class="dropdown-item" href="#">Fresh Fruits</a></li>
-             </ul>
-           </li>
-           <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle text-white" href="#" id="Snaks&DrinksDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Snaks&Drinks
-             </a>
-             <ul class="dropdown-menu" aria-labelledby="Snaks&DrinksfashionDropdown">
-               <li><a class="dropdown-item" href="#">Snacks</a></li>
-               <li><a class="dropdown-item" href="#">Cold Drinks</a></li>
-               <li><a class="dropdown-item" href="#">Dryfruits&Nuts</a></li>
-               <li><a class="dropdown-item" href="#">Hot Drinks</a></li>
-               <li><a class="dropdown-item" href="#">Protins</a></li>
-             </ul>
            </li>
          </ul>
             <form action="{% url 'searchbar' %}" method="get">
@@ -93,6 +71,30 @@
        </div>
      </div>
     </nav>
+    <!-- 2nd Navbar start -->
+    <nav class="navbar navbar-expand-lg" style="color: #fff; background-color:#000; height: 35px;">
+      <div class="container">
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
+            {% for cg in category_group %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="Home&KitchenDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               {{ cg.item_group_name }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="Home&KitchenDropdown">
+                
+                <li><a class="dropdown-item" href="{% url 'show-category' %}">Kitchen Steelproducts</a></li>
+              </ul>
+            </li>
+            {% endfor %}
+            
+          </ul>
+        </div>
+      </div>
+     </nav>
+    
     {% block banner_slider %} {% endblock banner_slider %}
     {% block catagory %} {% endblock catagory %}
     {% block fivecatagories %} {% endblock fivecatagories %}

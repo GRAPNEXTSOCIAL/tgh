@@ -13,7 +13,7 @@ from . import api
 
 urlpatterns = [
     
-    path('', views.home, name="home"),
+    path('', views.home, name="home"), 
     path('dologin/', views.login, name='dologin'),
     path('searchbar', views.searchbar, name='searchbar'),
     path('product\\-detail/<int:pk>', views.ProductDetailsView.as_view(), name='product-detail'),
@@ -28,6 +28,8 @@ urlpatterns = [
     path('orders/', views.orders, name='orders'),
     path('checkout/', views.checkout, name='checkout'),
     path('paymentdone/', views.payment_done, name='paymentdone'),
+
+    path('show_category', views.show_category, name='show-category'), 
 
     path('account/login/', auth_views.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
@@ -55,7 +57,6 @@ urlpatterns = [
     path('cudelete/<int:id>/', views.customer_delete, name="customer-delete"), 
     path('update/<int:id>/', views.update_cust, name= "customer-update"), 
 
-
     path('order-placed', views.all_orderplaced, name="list-order_placed"),
     path('opdelete/<int:id>/', views.op_delete, name="op-delete"), 
     path('opupdate/<int:id>/', views.op_update, name='op-update'), 
@@ -70,19 +71,25 @@ urlpatterns = [
 
     path('taxes', views.all_tax, name="list-tax"),
     path('taxdelete/<int:id>', views.tax_delete, name="tax-delete"),
-    path('updatetax<int:id>/', views.update_tax, name="update-tax"),    
+    path('updatetax/<int:id>/', views.update_tax, name="update-tax"),    
 
     path('colors', views.all_color, name="list-color"), 
-    path('colordelete/<int:id>', views.color_delete, name="color-delete"), 
+    path('colordelete/<int:id>/', views.color_delete, name="color-delete"), 
 
     path('sizes', views.all_size, name="list-size"),
-    path('sizedalate/<int:id>', views.size_delete, name="size-delete"),
+    path('sizedalate/<int:id>/', views.size_delete, name="size-delete"),
 
-    path('itemgroup', views.all_group, name="list-group"),  
+    path('itemgroup', views.all_group, name="list-group"), 
+    path('groupdelete/<int:id>/', views.group_delete, name="group-delete"), 
+    path('updategroup/<int:id>/', views.update_group, name="update-group"), 
 
     path('category', views.all_category, name="list-category"), 
+    path('categorydelete/<int:id>/', views.category_delete, name='category-delete'), 
+    path('updatecategory/<int:id>/', views.update_category, name="update-category"), 
 
     path('purchase', views.all_purchase, name="list-purchase"), 
+    path('purchasedelete/<int:id>/', views.purchase_delete, name='purchase-delete'), 
+    path('updatepurchase/<int:id>/', views.update_purchase, name="update-purchase"), 
 
     path('supplier', views.all_supplier, name="list-supplier"),
     path('supplierdelete/<int:id>/', views.supplier_delete, name="supplier-delete"), 
@@ -93,7 +100,6 @@ urlpatterns = [
     path('add-product', views.productinsert, name="P-insert"),
     path('add-customer', views.customerinsert, name="Cu-insert"),
     path('add-cart', views.cartinsert, name="Ca-insert"),
-    # path('add-order_placed', views.order_placed, name="Op-insert"),
     path('add-users', views.user_insert, name="U-insert"),
     path('add-coupon', views.coupon_insert, name="co-insert"),
     path('add-tax', views.tax_insert, name="tax-insert"),
@@ -104,9 +110,6 @@ urlpatterns = [
     path('add-category', views.category_insert, name='cat-insert'),  
     path('add-purchase', views.purchase_insert, name='purchase-insert'), 
     
-    
-
-    # path('update_product', views.update_product, name='update-product'),
 
     # for staff
     path('staff-home/', views.staff_home, name= "staff-home"),
@@ -118,6 +121,12 @@ urlpatterns = [
     path('order-place', views.all_orderplace, name="list-order_place"),
     path('user', views.all_user, name="list-user"),
     path('bills', views.bill_page, name="list-bills"),
+
+
+    # for Accountant
+    path('succ_bill', views.success_bills, name='success_bill'), 
+    path('hold_bill', views.hold_bills, name="hold_boll"), 
+
 
     # for cashier
     path('cashier-home/', views.cashier_home, name="cashier-home"),

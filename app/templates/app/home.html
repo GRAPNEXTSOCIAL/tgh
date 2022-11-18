@@ -36,54 +36,23 @@
   <center>
     <center><h1 style="font-family:'Lora', serif; font-weight: bold;color: black;"><b>Your Daily <span style="color: red;">Staples</span></b></h1></center>
   </center>
+   
   <div class="row">
-  
+  {% for cg in category_group %}
     
       <div class="col-md-2">
    <div class="card">     
-        <img src="{% static 'app/images/banner/atta.webp' %}" class="d-block w-100" alt="...">
+   
+    <a href="#" class="btn"><div class="item">
+      <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
+      <img src="{{ cg.item_group_image.url }}" alt="" height="200px">
+      <span class="fw-bold" style="text-transform: capitalize;">{{ cg.item_group_name }}</span>
+    </div></a>
+    
        
       </div>
     </div>
-    <div class="col-md-2">
-    <div class="card">
-    <!-- <div class="row"> -->
-      
-        <img src="{% static 'app/images/banner/cookoil.webp' %}" class="d-block w-100" alt="...">
-        
-      </div>
-    </div>
-    <div class="col-md-2">
-    <div class="card">
-    <!-- <div class="row"> -->
-      
-        <img src="{% static 'app/images/banner/coldoil.webp' %}" class="d-block w-100" alt="...">
-        
-      </div>
-    </div>
-     <div class="col-md-2">
-    <div class="card">
-     
-        <img src="{% static 'app/images/banner/ricebranoil.webp' %}" class="d-block w-100" alt="...">
-        
-      </div>
-   </div> 
-   <div class="col-md-2">
-   <div class="card">
-     
-        <img src="{% static 'app/images/banner/paste.webp' %}" class="d-block w-100" alt="...">
-        
-      </div>
- </div>
- <div class="col-md-2">
- <div class="card">
-      
-        <img src="{% static 'app/images/banner/herb.webp' %}" class="d-block w-100" alt="...">
-        
- 
-    </div>
-  </div>
-  </div>
+    {% endfor %} 
 </div>
 <br>
 {% endblock catagory %}
@@ -178,20 +147,17 @@
 </div>
 <br>
 <div class="mx-2">
-<center><h1 style="font-family:'Lora', serif; font-weight: bold;color: black;"><b>Kitchen <span style="color: red;">Stell Products</span></b></h1></center>
 <!-- Slider 1 -->
   <div class="owl-carousel" id="slider1">
-    {% for ksp in KitchenSteelproduct %}
-    <a href="{% url 'product-detail' ksp.id %}" class="btn"><div class="item">
+    {% for d in drinks %}
+    <a href="{% url 'product-detail' d.id %}" class="btn"><div class="item">
       <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
-      <img src="{{ ksp.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ ksp.title }}</span><br>
-      <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{ksp.selling_price}}</small>
-      <span class="fs-5" style="font-weight:bold;"> ₹{{ ksp.discounted_price }}</span>
-      <br>
-      <button class="btn btn-warning" style="font-size:18px;color: #fff;">Add to Cart</button>
-      <button class="btn btn-danger" style="font-size:18px;">Bye Now</button>
-      
-    
+      <img src="{{ d.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ d.title }}</span><br>
+      <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{d.selling_price}}</small>
+      <span class="fs-5" style="font-weight:bold;"> ₹{{ d.discounted_price }}</span>
+        <br>
+        <a class="btn btn-warning">Add to Cart</a>
+        <button class="btn btn-info">Bye Now</button>
     </div></a>
     {% endfor %} 
   </div>
@@ -203,17 +169,17 @@
   <center><h1 style="font-family:'Lora', serif; font-weight: bold;color: black;"><b>Grocery</b></h1></center>
  <!-- Slider 2 -->
  <div class="owl-carousel" id="slider2">
-  {% for g in Grocery %}
-  <a href="{% url 'product-detail' g.id %}" class="btn"><div class="item">
-    <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
-    <img src="{{ g.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ g.title }}</span><br>
-    <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{g.selling_price}}</small>
-    <span class="fs-5" style="font-weight:bold;"> ₹{{ g.discounted_price }}</span>
-      <br>
-      <a class="btn btn-warning">Add to Cart</a>
-      <button class="btn btn-info">Bye Now</button>
-  </div></a>
-  {% endfor %}
+  {% for d in product %}
+    <a href="{% url 'product-detail' d.id %}" class="btn"><div class="item">
+      <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
+      <img src="{{ d.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ d.title }}</span><br>
+      <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{d.selling_price}}</small>
+      <span class="fs-5" style="font-weight:bold;"> ₹{{ d.discounted_price }}</span>
+        <br>
+        <a class="btn btn-warning">Add to Cart</a>
+        <button class="btn btn-info">Bye Now</button>
+    </div></a>
+    {% endfor %}
  </div>
 </div>
 <br>

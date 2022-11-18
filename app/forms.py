@@ -16,12 +16,14 @@ class CustomerRegistrationForm(UserCreationForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Password'}))
     password2 = forms.CharField(label='Confirm Password (again)', widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Password Again'}))
     email = forms.CharField(required=True, widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Email'}))
+    
     class Meta:
         model = User
         fields = ['username', 
         'email', 
         'password1', 
-        'password2'
+        'password2', 
+        'staff_category'
         ]
         labels = {'email':'Email'}
         Widgets = {'username':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Username'})}
@@ -240,21 +242,22 @@ class SupplierForm(ModelForm):
 class ItemgroupForm(ModelForm):
     class Meta:
         model = Itemgroup
-        fields = ['item_group_code', 'item_group_name', 'item_group_description']
+        fields = ['item_group_code', 'item_group_name', 'item_group_description', 'item_group_image']
         widgets = {
             'item_group_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Group Code'}), 
             'item_group_name' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Group Name'}), 
-            'item_group_description' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Group Description'}), 
+            'item_group_description' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Group Description'}),
+            'item_group_image' :forms.ClearableFileInput(attrs={'class':'form-control'}), 
         }
 
 class CategoryForm(ModelForm):
     class Meta:
         model = Category
-        fields = ['item_group_name', 'category_code', 'category_name']
+        fields = ['item_group_name', 'category_code', 'category']
         widgets = {
            'item_group_name' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
            'category_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Category Code'}), 
-           'category_name' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Category Name'}), 
+           'category' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Category Name'}), 
         }
 
 class PurchaseForm(ModelForm):

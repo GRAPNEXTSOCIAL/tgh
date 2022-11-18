@@ -34,6 +34,7 @@
   <link href="{% static 'assetss/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -48,6 +49,45 @@
 
   <!-- Template Main CSS File -->
   <link href="{% static 'assetss/css/style.css' %}" rel="stylesheet">
+  <style>
+    svg{
+    font-size: 120px;
+    padding-top: -50px;
+ }
+ .copy{
+    fill: none;
+    stroke: #fff;
+    stroke-width: 5px;
+    stroke-dasharray: 15% 40%;
+    stroke-dashoffset: 0%;
+    animation: textanimation 6s linear infinite;
+ }
+ @keyframes textanimation{
+    100%{
+        stroke-dashoffset: -35%;
+    }
+ }
+.copy1{
+    stroke: green;
+    animation-delay: -1s;
+ }
+.copy2{
+    stroke: green;
+    animation-delay: -2s;
+ }
+ .copy3{
+    stroke: green;
+    animation-delay: -3s;
+ }
+  .copy4{
+    stroke: green;
+    animation-delay: -4s;
+ }
+ .copy5{
+    stroke: green;
+    animation-delay: -5s;
+ }
+  </style>
   </head>
 
   <body>
@@ -76,6 +116,16 @@ crossorigin="anonymous"
           <span class="d-none d-lg-block">Venus Daily Mart</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
+        <a href="#" class="logo d-flex align-items-center" style="margin-left: 650px;">
+          <svg viewBox="0 0 1200 230">
+            <text id="mytext" x="50%" y="50%" text-anchor="middle" fill="none">GrapsNext Social</text>
+            <use xlink:href="#mytext" class="copy copy1"></use>
+            <use xlink:href="#mytext" class="copy copy2"></use>
+            <use xlink:href="#mytext" class="copy copy3"></use>
+            <use xlink:href="#mytext" class="copy copy4"></use>
+            <use xlink:href="#mytext" class="copy copy5"></use>
+        </svg>
+        </a>
       </div><!-- End Logo -->
   
       
@@ -111,45 +161,50 @@ crossorigin="anonymous"
   
   </header><!-- End Header -->
     <br><br><br>
-    <div class="top1">
+    <div class="top" style="margin-left:20px;">
       <div class="row">
-          <div class="col-md-12">
-             <br>
-             <label for="custphone">Mobile:</label>
+        <div class="col-md-3">
+              <label for="custphone"><span style="font-weight: bold;">Mobile:</label>
               <input type="text" id="custphone" name="custphone">
-              <label for="custname">Name:</label>
-              <input type="text" id="custname" name="custname">
-              <label for="custemail">Email:</label>
-              <input type="text" id="custemail" name="custemail">
-                <label for="billhead">Bill No</label>
-                <input type="text" placeholder="" name="" id="bill-no" />
-                <!-- <button
-                  style="background-color: green; color: aliceblue"
-                  id="bill-search">
-                  Search
-                </button> -->
-                <button type="submit"><i class="fa fa-search" id="bill-search"></i></button>
-          </div>
-      </div>
-  </div>
-
-  <div class="top1">
-    <div class="row">
-        <div class="col-md-12">
-          <br> 
-          <label for="barcode" style="font-size:25px;">BarCode No:</label>
-          <input type="text" id="barcode" name="barcode">
-          <label for="pn">Product:</label>
-          <input type="text" id="product_name" name="product_name">
-          <label for="quantity">Qty:</label>
-          <input type="text" id="quantity" name="quantity">
-          <label for="price">Price</label>
-          <input type="text" placeholder="" name="price" id="price" />
-          <label for="taxamount">TaxAmount</label>
-          <input type="text" id="totaltax" name="grandtotal">
+              <br>
+              <label for="custname"><span style="font-weight: bold;">Name:</label>
+              <input type="text" id="custname" name="custname" style="margin-left:5px;">
+              <br>
+              <label for="custemail"><span style="font-weight: bold;">Email:</label>
+              <input type="text" id="custemail" name="custemail" style="margin-left:7px;">
         </div>
+        <div class="col-md-5">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="pn"><span style="font-weight: bold;">Product:</label>
+                  <input type="text" id="product_name" name="product_name" style="width: 50%; margin-left:3%;">
+              <br>
+               <label for="quantity"><span style="font-weight: bold;">Quantity:</label>
+               <input type="text" id="quantity" name="quantity" style="width: 50%;">
+            </div>
+            <div class="col-md-6">
+              <label for="price"><span style="font-weight: bold;">Price:</label>
+              <input type="text" placeholder="" name="price" id="price" style="width: 50%; margin-left: 20%;">
+              <br>
+              <label for="taxamount"><span style="font-weight: bold;">Tax Amount:</label>
+              <input type="text" id="totaltax" name="grandtotal" style="width: 50%;">
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <label for="billhead" style="font-size:15px;color: green;">Bill No:</label>
+          <input type="text" placeholder="" name="" id="bill-no" style="margin-left: 50px;">
+          <button type="submit"><i class="fa fa-search" id="bill-search"></i></button>
+          <br>
+          <label for="barcode" style="font-size:30px; color: red; font-weight: bold;">BarCode No:</label>
+          <input type="text" id="barcode" name="barcode" style="width:50%;">
+        </div>
+        
+      </div>
     </div>
-</div>
+  
+   
 <div class="row">
   <div class="col-md-12">
     <div class="tab">
@@ -159,62 +214,15 @@ crossorigin="anonymous"
       </div>
       <div class="row" id="chi">
         <div class="col-md-8">
-          <!-- <div>
-            <label for="billhead">Bill No</label>
-            <input type="text" placeholder="" name="" id="bill-no" />
-            <button
-              style="background-color: green; color: aliceblue"
-              id="bill-search"
-            >
-              Search
-            </button>
-          </div> -->
-          <div class="card" style="border: 2px solid black; height: 450px; max-height:500px; overflow-y:scroll">
+             <div class="card" style="border: 2px solid black; height: 95%; max-height:500px; overflow-y:scroll">
             <div class="plcbill" id="print_area">
-              <!-- <center><h4>Bill Area</h4></center>
-              <center>
-                ========================================================
-              </center>
-              <center><h5>WelCome To Venus Daily Mart</h5></center>
-              <center>
-                ========================================================
-              </center> -->
-              <!-- <div>
-                <label for="bill">Bill No</label>
-                <input type="text" placeholder="" name="" required />
-                <br />
-                <label for="custname">Customer Name</label>
-                <input
-                  type="text"
-                  placeholder=""
-                  name="custname"
-                  required
-                />
-                <br />
-                <label for="custphone">Customer Phone No</label>
-                <input
-                  type="text"
-                  placeholder=""
-                  name="custphone"
-                  required
-                />
-                <br />
-                <label for="custemail">Customer Email</label>
-                <input
-                  type="text"
-                  placeholder=""
-                  name="custemail"
-                  required
-                />
-              </div> -->
+   
               <div class="card" style="display: flex;">
                 <table
                   class="table table-borderless"
                   id="bill-items"
                   style="width: 100%"
                 >
-                <label for="">Bill No:</label>
-                <input type="text" name="" id="" style="width:50%;">
                   <thead>
                     <tr>
                       <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">BarCode No</th>
@@ -233,54 +241,18 @@ crossorigin="anonymous"
         </div>
         <div class="col-md-4">
           <div class="row">
-            <!-- <div class="col-md-4">
-              <div class="card" style="border: 2px solid black">
-                <h4>Customer</h4>
-                <div>
-                  <label for="mno">Mobile No</label>
-                  <input
-                    type="text"
-                    placeholder=""
-                    name="custphone"
-                    required
-                  />
-                  <br />
-                  <label for="name">Customer Name</label>
-                  <input
-                    type="text"
-                    placeholder=""
-                    name="custname"
-                    required
-                  />
-                  <br />
-                  <label for="email">Email Id</label>
-                  <input
-                    type="text"
-                    placeholder=""
-                    name="custemail"
-                    required
-                  />
-                </div>
-              </div>
-            </div> -->
-
+   
             <div class="col-md-12">
-              <div class="card" style="border: 2px solid black; height: 450px;">
+              <div class="card" style="border: 2px solid black; height: 95%;">
                 <div class="row">
-                  <div class="total">
+                  <div class="total" style="margin-left:2%;">
                     
-                    <!-- <label for="subamont">Sub Amount</label>
-                    <input type="text" name="subtotal" />
-                    <br />
-                    <label for="tax">Tax Amount</label>
-                    <input type="text" placeholder="" name="taxamount" />
-                    <br /> -->
                     <br>
                     <label for="totalamount">Total Amount</label>
-                    <input type="text" placeholder="" name="grandtotal" style="margin-left: 5px;"/>
+                    <input type="text" placeholder="" name="grandtotal" style="width: 40%;"/>
                     <br />
-                    <label for="">Coupon Code : </label>
-                    <input type="text" placeholder="" name="coupon" />
+                    <label for="">Coupon Code:</label>
+                    <input type="text" placeholder="" name="coupon" style="width:35%;">
                     <button class="btn btn-dark" id="apply-coupon">Apply Coupon</button>
                     <br>
                     <label for="">DISCOUNT</label>
@@ -305,180 +277,90 @@ crossorigin="anonymous"
                       <input type="text"  name="" style="margin-left: 95px;" />
                       <br />
                   </div>
-                  <div class="btn">
-                <button
-                  style="
-                    color: aliceblue;
-                    width: 150px;
-                    height: 60px;
-                    font-weight: 900;
-                  "
-                  class="btn btn-secondary"
-                  id="add-btn" 
-                >
-                  Add
-                </button>
-                <a href="#"
-                  ><button
-                    style="
-                      color: aliceblue;
-                      width: 150px;
-                      height: 60px;
-                      font-weight: 900;
-                    "
-                    class="btn btn-success"
-                    id="generate-bill"
-                  >
-                    Generate Bill
-                  </button></a
-                >
-                <button
-                  id="hold-save"
-                  style="width: 150px; height: 60px; font-weight: 900"
-                  class="btn btn-primary"
-                >
-                  Hold & Save Bill
-                </button>
-                <button
-                  style="
-                    color: aliceblue;
-                    width: 150px;
-                    height: 60px;
-                    font-weight: 900;
-                  "
-                  class="btn btn-info"
-                >
-                  Return
-                </button>
-                <button
-                  style="
-                    color: aliceblue;
-                    width: 150px;
-                    height: 60px;
-                    font-weight: 900;
-                  "
-                  id="clr-btn"
-                  class="btn btn-warning"
-                >
-                  Clear
-                </button>
-                <a href="{% url 'exit_bill' %}"
-                  ><button
-                    style="
-                      color: aliceblue;
-                      width: 150px;
-                      height: 60px;
-                      font-weight: 900;
-                    "
-                    class="btn btn-danger"
-                  >
-                    Exit
-                  </button></a
-                >
-              </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         
-        <!-- ///////////////////////////////////////// -->
-        <!-- <div class="card" style="border: 2px solid black">
-          <div class="row" style="display: flex">
-            <div class="col-md-8">
-              <div class="btn">
-                <button
-                  style="
-                    color: aliceblue;
-                    width: 150px;
-                    height: 60px;
-                    font-weight: 900;
-                  "
-                  class="btn btn-secondary"
-                  id="add-btn"
-                >
-                  Add
-                </button>
-                <a href="#"
-                  ><button
-                    style="
-                      color: aliceblue;
-                      width: 150px;
-                      height: 60px;
-                      font-weight: 900;
-                    "
-                    class="btn btn-success"
-                    id="generate-bill"
-                  >
-                    Generate Bill
-                  </button></a
-                >
-                <button
-                  id="hold-save"
-                  style="width: 150px; height: 60px; font-weight: 900"
-                  class="btn btn-primary"
-                >
-                  Hold & Save Bill
-                </button>
-                <button
-                  style="
-                    color: aliceblue;
-                    width: 150px;
-                    height: 60px;
-                    font-weight: 900;
-                  "
-                  class="btn btn-info"
-                >
-                  Return
-                </button>
-                <button
-                  style="
-                    color: aliceblue;
-                    width: 150px;
-                    height: 60px;
-                    font-weight: 900;
-                  "
-                  id="clr-btn"
-                  class="btn btn-warning"
-                >
-                  Clear
-                </button>
-                <a href="{% url 'exit_bill' %}"
-                  ><button
-                    style="
-                      color: aliceblue;
-                      width: 150px;
-                      height: 60px;
-                      font-weight: 900;
-                    "
-                    class="btn btn-danger"
-                  >
-                    Exit
-                  </button></a
-                >
-              </div>
-            </div>
-            <div class="col-md-4">
-              <label for="subamont">Sub Amount</label>
-              <input type="text" placeholder="" name="subtotal" />
-              <br />
-              <label for="taxamount">Tax Amount</label>
-              <input type="text" placeholder="" name="taxamount" />
-              <br />
-              <label for="totalamount">Total Amount</label>
-              <input type="text" placeholder="" name="grandtotal" />
-              <br />
-              <label for="">Coupon Code : </label>
-              <input type="text" placeholder="" name="" />
-              <button class="btn btn-dark">Apply Coupon</button>
-            </div>
-          </div>
-        </div> -->
-        <div class="footer" style="background-color:black;margin-top: -25px;">
-          <center>
-            <h6 style="color:#fff;">Designed By Graps Next Social</h6>
-          </center>
+        <div class="btn1" style="margin-left:7%;">
+          <button
+            style="
+              color: aliceblue;
+              width: 180px;
+              height: 80px;
+              font-weight: 900;
+            "
+            class="btn btn-secondary"
+            id="add-btn" 
+          >
+          <i class="fa-regular fa-plus"></i>
+          Add
+          </button>
+          <a href="#"
+            ><button
+              style="
+                color: aliceblue;
+                width: 180px;
+                height: 80px;
+                font-weight: 900;
+              "
+              class="btn btn-success"
+              id="generate-bill"
+            >
+            <i class="fa-duotone fa-money-bill-1-wave"></i>
+              Generate Bill
+            </button></a
+          >
+          <button
+            id="hold-save"
+            style="width: 180px; height: 80px; font-weight: 900"
+            class="btn btn-primary"
+          >
+          <i class="fa-solid fa-floppy-disk"></i>
+            Hold & Save Bill
+          </button>
+          <button
+            style="
+              color: aliceblue;
+              width: 180px;
+              height: 80px;
+              font-weight: 900;
+            "
+            class="btn btn-info"
+          >
+          <i class="fa-sharp fa-solid fa-arrow-rotate-left"></i>
+            Return
+          </button>
+          <button
+            style="
+              color: aliceblue;
+              width: 180px;
+              height: 80px;
+              font-weight: 900;
+            "
+            id="clr-btn"
+            class="btn btn-warning"
+          >
+          <i class="fa fa-trash"></i>
+            Clear
+          </button>
+          <a href="{% url 'exit_bill' %}"
+            ><button
+              style="
+                color: aliceblue;
+                width: 180px;
+                height: 80px;
+                font-weight: 900;
+              "
+              class="btn btn-danger"
+            >
+            <i class="fa-sharp fa-solid fa-circle-xmark"></i>
+              Exit
+            </button></a
+          >
         </div>
+        
       </div>
     </div>
   </div>

@@ -1,7 +1,3 @@
-from datetime import date, datetime
-from distutils.command import upload
-from itertools import product
-from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -72,10 +68,6 @@ class Size(models.Model):
     def __str__(self) -> str:
         return self.item_size
 
-# class Prodgroup(models.Model):
-#     p_group_code = models.IntegerField()
-#     p_group_name = models.CharField(max_length=70)
-#     p_group_description = models.CharField(max_length=200)
 
 class Supplier(models.Model):
     supplier_code = models.CharField(max_length=50)
@@ -104,12 +96,13 @@ class Customer(models.Model):
     state = models.CharField(choices=STATE_CHOICES, max_length=50, null=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.user)
 
 class Itemgroup(models.Model):
     item_group_code = models.IntegerField()
     item_group_name = models.CharField(max_length=50)
     item_group_description = models.CharField(max_length=200)
+    item_group_image = models.ImageField(blank=True, upload_to='group_img')
 
     def __str__(self) -> str:
         return self.item_group_name
@@ -117,10 +110,10 @@ class Itemgroup(models.Model):
 class Category(models.Model):
     item_group_name = models.ForeignKey(Itemgroup, on_delete=models.CASCADE, null=True)
     category_code = models.IntegerField()
-    category_name = models.CharField(max_length=50)
+    category = models.CharField(max_length=50)
 
     def __str__(self) -> str:
-        return self.category_name
+        return self.category
 
 class Product(models.Model):
     group = models.ForeignKey(Itemgroup, on_delete=models.CASCADE, null=True)
@@ -173,6 +166,7 @@ class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     offer_applied = models.ForeignKey(Coupon, null=True, on_delete=models.CASCADE)
+    hold = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.id)

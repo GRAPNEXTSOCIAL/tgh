@@ -250,6 +250,23 @@
           </li>
         </ul>
       </li><!-- End Icons Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>BILLS</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'success_bill' %}">
+              <i class="bi bi-circle"></i><span>SUCCESS BILLS</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'hold_boll' %}">
+              <i class="bi bi-circle"></i><span>HOLD BILLS</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
       
       <li class="nav-item">
@@ -282,7 +299,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Venus Daily Mart</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>The Grocery House</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->

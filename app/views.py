@@ -24,7 +24,6 @@ from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 
 
-
 def home(request):
     # view = ProductView()
     # return view.get(request)
@@ -61,31 +60,10 @@ def staff_dashboard(request):
 def cashier_dashboard(request):
     return render(request, 'cash_counter/cashier_home.html')
 
-
 # Product View list(Admin)
 def all_products(request):
     product_list = Product.objects.all()
     return render(request, 'admin_app/products.html', {'product_list':product_list})
-
-# Product Delete(admin)
-def delete_data(request, id):
-    if request.method =='POST':
-        pd=Product.objects.get(pk=id)
-        pd.delete()
-        return HttpResponseRedirect('admin_app/products.html')
-
-# product Update(admin)
-def update_data(request, id):
-    if request.method == 'POST':
-        pu = Product.objects.get(pk=id)
-        fm = ProductForm(request.POST, instance=pu)
-        if fm.is_valid():
-            fm.save()
-            fm.clean()
-    else:
-        pu = Product.objects.get(pk=id)
-        fm = ProductForm(instance=pu)
-    return render(request, 'admin_app/update_product.html', {'form':fm})
 
 # Product View list(Staff)
 def all_product(request):
@@ -102,13 +80,6 @@ def all_carts(request):
     cart_list = Cart.objects.all()
     return render(request, 'admin_app/carts.html', {'cart_list':cart_list})
 
-# Cart Delete(admin)
-def cart_delete(request, id):
-    if request.method =='POST':
-        cd=Cart.objects.get(pk=id)
-        cd.delete()
-        return HttpResponseRedirect('admin_app/carts.html')
-
 # Cart View list(Staff)
 def all_cart(request):
     carts_list = Cart.objects.all()
@@ -119,57 +90,15 @@ def all_customer(request):
     customer_list = Customer.objects.all()
     return render(request, 'admin_app/customers.html', {'customer_list':customer_list})
 
-# Customer Delete(admin)
-def customer_delete(request, id):
-    if request.method =='POST':
-        cd=Customer.objects.get(pk=id)
-        cd.delete()
-        return HttpResponseRedirect('admin_app/customers.html')
-
-# Customer Update(admin)
-def update_cust(request, id):
-    if request.method == 'POST':
-        cu = Customer.objects.get(pk=id)
-        fm = CustomerForm(request.POST, instance=cu)
-        if fm.is_valid():
-            fm.save()
-            fm.clean()
-    else:
-        cu = Customer.objects.get(pk=id)
-        fm = CustomerForm(instance=cu)
-    return render(request, 'admin_app/update_customer.html', {'form':fm})
-
-
 # Customer View list(Staff)
 def all_customeres(request):
     customers_list = Customer.objects.all()
     return render(request, 'staff/customers.html', {'customers_list':customers_list})
 
-
 # Order-Placed list(Admin)
 def all_orderplaced(request):
     orderplaced_list = OrderPlaced.objects.all()
     return render(request, 'admin_app/order_placed.html', {'orderplaced_list':orderplaced_list})
-
-# Order_Placed Delete(admin)
-def op_delete(request, id):
-    if request.method =='POST':
-        cd=OrderPlaced.objects.get(pk=id)
-        cd.delete()
-        return HttpResponseRedirect('admin_app/order_placed.html')
-
-# Order_Placed Update(admin)
-def op_update(request, id):
-    if request.method == 'POST':
-        opu = OrderPlaced.objects.get(pk=id)
-        fm = OrderPlacedForm(request.POST, instance=opu)
-        if fm.is_valid():
-            fm.save()
-            fm.clean()
-    else:
-        opu = OrderPlaced.objects.get(pk=id)
-        fm = OrderPlacedForm(instance=opu)
-    return render(request, 'admin_app/update_order_place.html', {'form':fm})
 
 # Order-Placed list(Staff)
 def all_orderplace(request):
@@ -189,19 +118,12 @@ def user_insert(request):
         form = CustomerRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/user_insert?submitted=True')
+            return redirect(user_insert)
     else:
-        form = CustomerRegistrationForm
+        form = CustomerRegistrationForm()
         if 'submitted' in request.GET:
             submitted =True
     return render(request, 'admin_app/userinsertform.html', {'form':form, 'submitted':submitted})
-
-# Users Delete(admin)
-def u_delete(request, id):
-    if request.method =='POST':
-        cd=User.objects.get(pk=id)
-        cd.delete()
-        return HttpResponseRedirect('admin_app/users.html')
 
 # Users list(Staff)
 def all_user(request):
@@ -214,50 +136,10 @@ def all_coupon(request):
     coupon_list = Coupon.objects.all()
     return render(request, 'admin_app/coupon.html', {'coupon_list':coupon_list})
 
-# Coupon Update(admin)
-def coupon_update(request, id):
-    if request.method == 'POST':
-        cou = Coupon.objects.get(pk=id)
-        fm = CouponForm(request.POST, instance=cou)
-        if fm.is_valid():
-            fm.save()
-            fm.clean()
-    else:
-        cou = Coupon.objects.get(pk=id)
-        fm = CouponForm(instance=cou)
-    return render(request, 'admin_app/update_coupon.html', {'form':fm})
-
-# Coupon Delete(admin)
-def c_delete(request, id):
-    if request.method =='POST':
-        cd=Coupon.objects.get(pk=id)
-        cd.delete()
-        return HttpResponseRedirect('admin_app/coupon.html')
-
 # Tax list(admin)
 def all_tax(request):
     tax_list = Tax.objects.all()
     return render(request, 'admin_app/tax.html', {'tax_list':tax_list})
-
-# Tax delete(delete)
-def tax_delete(request, id):
-    if request.method =='POST':
-        tx = Tax.objects.get(pk=id)
-        tx.delete()
-        return render(request, 'admin_app/tax.html')
-
-# Tax Update(admin)
-def update_tax(request, id):
-    if request.method == 'POST':
-        tu = Tax.objects.get(pk=id)
-        fm = TaxForm(request.POST, instance=tu)
-        if fm.is_valid():
-            fm.save()
-            fm.clean()
-    else:
-        tu = Tax.objects.get(pk=id)
-        fm = TaxForm(instance=tu)
-    return render(request, 'admin_app/update_tax.html', {'form':fm})
 
 # Color list(admin)
 def all_color(request):
@@ -282,32 +164,12 @@ def all_category(request):
 # Purchase List(admin)
 def all_purchase(request):
     purchase_list = Purchase.objects.all()
-    return render(request, 'admin_app/purchase.html', {'Purchase_list':purchase_list})
+    return render(request, 'admin_app/purchase.html', {'purchase_list':purchase_list})
 
 # Supplier list(admin)
 def all_supplier(request):
     supplier_list = Supplier.objects.all()
     return render(request, 'admin_app/supplier.html', {'supplier_list':supplier_list})
-
-# Supplier Delete(admin)
-def supplier_delete(request, id):
-    if request.method =='POST':
-        cd=Supplier.objects.get(pk=id)
-        cd.delete()
-        return HttpResponseRedirect('admin_app/supplier.html')
-
-# Supplier Update(admin)
-def supplier_update(request, id):
-    if request.method == 'POST':
-        opu = Supplier.objects.get(pk=id)
-        fm = SupplierForm(request.POST, instance=opu)
-        if fm.is_valid():
-            fm.save()
-            fm.clean()
-    else:
-        opu = Supplier.objects.get(pk=id)
-        fm = SupplierForm(instance=opu)
-    return render(request, 'admin_app/update_supplier.html', {'form':fm})
 
 # Bill-page
 def bill_page(request):
@@ -353,7 +215,7 @@ def customerinsert(request):
             return redirect(customerinsert)
     else:
         form = CustomerForm()
-        if 'subnitted' in request.GET:
+        if 'submitted' in request.GET:
             submitted = True
     return render(request, 'admin_app/customerinsertform.html', {'form':form, 'submitted':submitted})
 
@@ -389,7 +251,7 @@ def order_placed(request):
 def group_insert(request):
     submitted = False
     if request.method == "POST":
-        forms = ItemgroupForm(request.POST)
+        forms = ItemgroupForm(request.POST, request.FILES)
         if forms.is_valid():
             forms.save()
             # messages.success(request, 'Your changed are saved Successfully......!!!')
@@ -408,15 +270,12 @@ def category_insert(request):
         forms = CategoryForm(request.POST)
         if forms.is_valid():
             forms.save()
-            # messages.success(request, 'Your changed are saved Successfully......!!!')
             return redirect(category_insert)
     else:
         forms = CategoryForm
         if 'submitted' in request.GET:
             submitted = True
-    # messages.success(request, 'Your changed are saved Successfully......!!!')
     return render(request, 'admin_app/category_insert.html', {'forms':forms, 'submitted':submitted})
-
 
 # Category insert
 def purchase_insert(request):
@@ -425,22 +284,12 @@ def purchase_insert(request):
         forms = PurchaseForm(request.POST)
         if forms.is_valid():
             forms.save()
-            # messages.success(request, 'Your changed are saved Successfully......!!!')
             return redirect(purchase_insert)
     else:
         forms = PurchaseForm
         if 'submitted' in request.GET:
             submitted = True
-    # messages.success(request, 'Your changed are saved Successfully......!!!')
     return render(request, 'admin_app/purchase_insert.html', {'forms':forms, 'submitted':submitted})
-
-
-
-# # User Update(Admin)
-# def update_users(request, id):
-#     if request.method == 'POST':
-#         uu = User.objects.get(pk=id)
-#         fm = 
 
 # Coupon insert
 def coupon_insert(request):
@@ -477,22 +326,12 @@ def color_insert(request):
         form = ColorForm(request.POST)
         if form.is_valid():
             form.save()
-            # messages.success(request, 'Your changed are saved Successfully......!!!')
             return redirect(color_insert)
     else:
         form = ColorForm
         if 'submitted' in request.GET:
             submitted = True
-    # messages.success(request, 'Your changed are saved Successfully......!!!')
     return render(request, 'admin_app/color_insert.html', {'form':form, 'submitted':submitted}) 
-
-# color delete
-def color_delete(request, id):
-    if request.method =='POST':
-        tx = Color.objects.get(pk=id)
-        tx.delete()
-        return render(request, 'admin_app/color.html')
-
 
 # Supplier insert
 def supplier_insert(request):
@@ -522,59 +361,29 @@ def size_insert(request):
             submitted = True
     return render(request, 'admin_app/size_insert.html', {'form':form, 'submitted':submitted})
 
-
-
-# size delete
-def size_delete(request, id):
-    if request.method =='POST':
-        tx = Size.objects.get(pk=id)
-        tx.delete()
-        return render(request, 'admin_app/size.html')
-
-# Coupon Update(admin)
-def update_coupon(request,id):
-    if request.method == 'POST':
-        co = Coupon.objects.get(pk=id)
-        fm = CouponForm(request.POST, instance=co)
-        if fm.is_valid():
-            fm.save()
-            fm.clean()
-    else:
-        co = Coupon.objects.get(pk=id)
-        fm = CouponForm(instance=co)
-    return render(request, 'admin_app/update_coupon.html', {'form':fm})
-
-
-# Update product
-def update_product(request):
-    product = Product.objects.get()
-    return render(request, 'admin_app/update_product.html', {'product':product})
-
 # User Views
 #Home/Product view
 class ProductView(View):
     def get(self, request):
-        KitchenSteelproduct = Product.objects.filter(category='Kitchen Steelproduct')
-        Grocery = Product.objects.filter(category='Grocery')
-        Vegitables = Product.objects.filter(category='Vegitables')
-        FreshFruits = Product.objects.filter(category='Fresh Fruits')
-        Snacks = Product.objects.filter(category='Snacks')
-        ColdDrinks = Product.objects.filter(category='Cold Drinks')
-        DryfruitsNuts = Product.objects.filter(category='Dryfruits & Nuts')
-        HotDrinks = Product.objects.filter(category='Hot Drinks') 
-        Protins = Product.objects.filter(category='Protins')
-        BeautyProducts = Product.objects.filter(category='Beauty Products')
-        OtherHomeProdects = Product.objects.filter(category='Other Home Products')
-        return render(request, 'app/home.html', {'KitchenSteelproduct':KitchenSteelproduct, 'Grocery':Grocery, 'Vegitables':Vegitables, 'FreshFruits':FreshFruits, 'Snacks':Snacks, 'ColdDrinks':ColdDrinks, 'DryfruitsNuts':DryfruitsNuts, 'HotDrinks':HotDrinks, 'Protins':Protins, 'BeautyProducts':BeautyProducts, 'OtherHomeProdects':OtherHomeProdects})
+        category_group = Itemgroup.objects.all()
+        product = Product.objects.all()
+        # food = Category.objects.filter(item_group_name=food)
+        return render(request, 'app/home.html', {'product':product, 
+        'category_group':category_group,
+        # 'food':food,  
+        # 'fruits_nuts':fruits_nuts, 
+        # 'drinks':drinks
+        })
 
 # product details
 class ProductDetailsView(View):
     def get(self, request, pk):
+        category_group = Itemgroup.objects.all()
         product = Product.objects.get(pk=pk)
         item_already_in_cart = False
         if request.user.is_authenticated:
             item_already_in_cart = Cart.objects.filter(Q(product=product) & Q(customer__user=request.user)).exists()
-        return render(request, 'app/productdetail.html', {'product':product, 'item_already_in_cart':item_already_in_cart}) 
+        return render(request, 'app/productdetail.html', {'product':product, 'item_already_in_cart':item_already_in_cart, 'category_group':category_group}) 
 
 # search Function
 def searchbar(request):
@@ -589,14 +398,16 @@ def add_to_cart(request):
     user = request.user
     product_id = request.GET.get('prod_id')
     product = Product.objects.get(id=product_id)
-    Cart(user=user, product=product).save()
+    customer = Customer.objects.filter(user=user).first()
+    Cart(customer=customer, product=product).save()
     return redirect('/cart')
 
 #view cart
 def show_cart(request):
     if request.user.is_authenticated:
         user = request.user
-        cart = Cart.objects.filter(user=user)
+        customer = Customer.objects.filter(user=user).first()
+        cart = Cart.objects.filter(customer=customer)
         # print(cart)
 
         #calculation/no product in cart
@@ -629,7 +440,6 @@ def plus_cart(request):
             tempamount = (p.quantity * p.product.discounted_price)
             amount += tempamount
 
-
         data = {
             'quantity': c.quantity,
             'amount': amount,
@@ -656,7 +466,6 @@ def minus_cart(request):
             'quantity': c.quantity,
             'amount': amount,
             'totalamount': amount + shipping_amount
-
             }
         return JsonResponse(data)
 
@@ -710,7 +519,6 @@ def orders(request):
 #         mobiles = Product.objects.filter(category='M').filter(discounted_price__gt=10000)
 #     return render(request, 'app/mobile.html', {'mobiles':mobiles})
 
-
 def admin_home(request):
     return render(request, 'admin_app/admin_home.html')
 
@@ -737,11 +545,11 @@ class CustomerRegistrationFormView(View):
 def checkout(request):
     user = request.user
     add = Customer.objects.filter(user=user)
-    cart_items = Cart.objects.filter(user=user)
+    cart_items = Cart.objects.filter(customer=add.first())
     amount = 0.0
     shipping_amount = 70.0
     totalamount = 0.0
-    cart_product = [p for p in Cart.objects.all() if p.customer == request.user]
+    cart_product = cart_items
     if cart_product:
         for p in cart_product:
             tempamount = (p.quantity * p.product.discounted_price)
@@ -788,4 +596,231 @@ def exit_bill(request):
 def bill_print(request):
     return render(request, 'bill_print.html')
 
+def hold_bills(request):
+    hold_bill_list = Cart.objects.filter(hold=True)
+    return render(request, 'accountant_app/hold_bill_list.html', {'hold_bill_list':hold_bill_list})
 
+def success_bills(request):
+    success_bill = Cart.objects.filter(hold=False)
+    return render(request, 'accountant_app/success_list.html', {'success_bill':success_bill})
+
+def navbar_list(request):
+    nav_list = Itemgroup.objects.all()
+    return render(request, 'app/base.html', {'nav_list':nav_list})
+
+def show_category(request):
+    product = Product.objects.all()
+    category_group = Itemgroup.objects.all()
+    return render(request, 'app/categorydetails.html', {'category_group':category_group, 'product':product})
+
+
+# Update functions(Admin)
+# product Update(admin)
+def update_data(request, id):
+    if request.method == 'POST':
+        pu = Product.objects.get(pk=id)
+        fm = ProductForm(request.POST, instance=pu)
+        if fm.is_valid():
+            fm.save()
+            fm.clean()
+    else:
+        pu = Product.objects.get(pk=id)
+        fm = ProductForm(instance=pu)
+    return render(request, 'admin_app/update_product.html', {'form':fm})
+
+# Customer Update(admin)
+def update_cust(request, id):
+    if request.method == 'POST':
+        cu = Customer.objects.get(pk=id)
+        fm = CustomerForm(request.POST, instance=cu)
+        if fm.is_valid():
+            fm.save()
+            fm.clean()
+    else:
+        cu = Customer.objects.get(pk=id)
+        fm = CustomerForm(instance=cu)
+    return render(request, 'admin_app/update_customer.html', {'form':fm})
+
+# Order_Placed Update(admin)
+def op_update(request, id):
+    if request.method == 'POST':
+        opu = OrderPlaced.objects.get(pk=id)
+        fm = OrderPlacedForm(request.POST, instance=opu)
+        if fm.is_valid():
+            fm.save()
+            fm.clean()
+    else:
+        opu = OrderPlaced.objects.get(pk=id)
+        fm = OrderPlacedForm(instance=opu)
+    return render(request, 'admin_app/update_order_place.html', {'form':fm})
+
+# Coupon Update(admin)
+def update_coupon(request, id):
+    if request.method == 'POST':
+        co = Coupon.objects.get(pk=id)
+        fm = CouponForm(request.POST, instance=co)
+        if fm.is_valid():
+            fm.save()
+            fm.clean()
+    else:
+        co = Coupon.objects.get(pk=id)
+        fm = CouponForm(instance=co)
+    return render(request, 'admin_app/update_coupon.html', {'form':fm})
+
+# Tax Update(admin)
+def update_tax(request, id):
+    if request.method == 'POST':
+        tu = Tax.objects.get(pk=id)
+        fm = TaxForm(request.POST, instance=tu)
+        if fm.is_valid():
+            fm.save()
+            fm.clean()
+    else:
+        tu = Tax.objects.get(pk=id)
+        fm = TaxForm(instance=tu)
+    return render(request, 'admin_app/update_tax.html', {'form':fm})
+
+# Supplier Update(admin)
+def supplier_update(request, id):
+    if request.method == 'POST':
+        opu = Supplier.objects.get(pk=id)
+        fm = SupplierForm(request.POST, instance=opu)
+        if fm.is_valid():
+            fm.save()
+            fm.clean()
+    else:
+        opu = Supplier.objects.get(pk=id)
+        fm = SupplierForm(instance=opu)
+    return render(request, 'admin_app/update_supplier.html', {'form':fm})
+
+# Group Update(admin)
+def update_group(request, id):
+    if request.method =='POST':
+        gr = Itemgroup.objects.get(pk=id)
+        fm = ItemgroupForm(request.POST, instance=gr)
+        if fm.is_valid():
+            fm.save()
+            fm.clean()
+    else:
+        gr = Itemgroup.objects.get(pk=id)
+        fm = ItemgroupForm(instance=gr)
+    return render(request, 'admin_app/update_group.html', {'form':fm})
+
+# Category Update(admin)
+def update_category(request, id):
+    if request.method == 'POST':
+        cat = Category.objects.get(pk=id)
+        fm = CategoryForm(request.POST, instance=cat)
+        if fm.is_valid():
+            fm.save()
+            fm.clean()
+    else:
+        cat = Category.objects.get(pk=id)
+        fm = CategoryForm(instance=cat)
+    return render(request, 'admin_app/update_category.html', {'form':fm})
+
+# Purchase Update(admin)
+def update_purchase(request, id):
+    if request.method == 'POST':
+        p = Purchase.objects.get(pk=id)
+        fm = PurchaseForm(request.POST, instance=p)
+        if fm.is_valid():
+            fm.save()
+            fm.clean()
+    else:
+        p = Purchase.objects.get(pk=id)
+        fm = PurchaseForm(instance=p)
+    return render(request, 'admin_app/update_purchase.html', {'form':fm})
+
+
+# Delete Function(Admin)
+# Product Delete(admin)
+def delete_data(request, id):
+    if request.method =='POST':
+        pd=Product.objects.get(pk=id)
+        pd.delete()
+        return HttpResponseRedirect('admin_app/products.html')
+
+# Cart Delete(admin)
+def cart_delete(request, id):
+    if request.method =='POST':
+        cd=Cart.objects.get(pk=id)
+        cd.delete()
+        return HttpResponseRedirect('admin_app/carts.html')
+
+# Customer Delete(admin)
+def customer_delete(request, id):
+    if request.method =='POST':
+        cd=Customer.objects.get(pk=id)
+        cd.delete()
+        return HttpResponseRedirect('admin_app/customers.html')
+
+# Order_Placed Delete(admin)
+def op_delete(request, id):
+    if request.method =='POST':
+        cd=OrderPlaced.objects.get(pk=id)
+        cd.delete()
+        return HttpResponseRedirect('admin_app/order_placed.html')
+
+# Users Delete(admin)
+def u_delete(request, id):
+    if request.method =='POST':
+        cd=User.objects.get(pk=id)
+        cd.delete()
+        return HttpResponseRedirect('admin_app/users.html')
+
+# Coupon Delete(admin)
+def c_delete(request, id):
+    if request.method =='POST':
+        cd=Coupon.objects.get(pk=id)
+        cd.delete()
+        return HttpResponseRedirect('admin_app/coupon.html')
+
+# Tax delete(delete)
+def tax_delete(request, id):
+    if request.method =='POST':
+        tx = Tax.objects.get(pk=id)
+        tx.delete()
+        return render(request, 'admin_app/tax.html')
+
+# Supplier Delete(admin)
+def supplier_delete(request, id):
+    if request.method =='POST':
+        cd=Supplier.objects.get(pk=id)
+        cd.delete()
+        return HttpResponseRedirect('admin_app/supplier.html')
+
+# Group Delete
+def group_delete(request, id):
+    if request.method == 'POST':
+        gr = Itemgroup.objects.get(pk=id)
+        gr.delete()
+        return render(request, 'admin_app/group.html')
+
+# color delete
+def color_delete(request, id):
+    if request.method =='POST':
+        tx = Color.objects.get(pk=id)
+        tx.delete()
+        return render(request, 'admin_app/color.html')
+
+# size delete
+def size_delete(request, id):
+    if request.method =='POST':
+        tx = Size.objects.get(pk=id)
+        tx.delete()
+        return render(request, 'admin_app/size.html')
+
+# Category delete
+def category_delete(request, id):
+    if request.method == 'POST':
+        tx = Category.objects.get(pk=id)
+        tx.delete()
+        return render(request, 'admin_app/category.html')
+
+# Purchase delete
+def purchase_delete(request, id):
+    if request.method == 'POST':
+        tx = Purchase.objects.get(pk=id)
+        tx.delete()
+        return render(request, 'admin_app/purchase.html')

@@ -81,6 +81,7 @@ def save_bill(request):
         cart_id = f'{customer.mobile_no}_{now}'
 
         cart_items = []
+        hold = data.get('hold', False)
         products = data.get('products', [])
         for product in products:
             barcode = product['barcode']
@@ -88,7 +89,7 @@ def save_bill(request):
             cart = Cart(cart_id=cart_id, customer=customer,
                         product=product_obj,
                         quantity=product.get('quantity', 1),
-                        offer_applied=coupon)
+                        offer_applied=coupon, hold=hold)
             cart_items.append(cart)
 
         carts = Cart.objects.bulk_create(cart_items)

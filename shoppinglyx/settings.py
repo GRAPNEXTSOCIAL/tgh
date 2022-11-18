@@ -95,7 +95,9 @@ DATABASES = {
         'USER': 'tgnvtrpufhpjdi',
         'PASSWORD': 'e0577da0070fc69645a8e2e685f2c34941c79c30b2e1749e8f9bba5d10fdab27',
         'HOST': 'ec2-35-170-21-76.compute-1.amazonaws.com',
-        'PORT': '5432',  
+        'PORT': '5432', 
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3', 
     }
 }
 
@@ -142,7 +144,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_REDIRECT_URL = '/dologin/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_DIR = [
     os.path.join(str(BASE_DIR.joinpath('static')),)
 ]
