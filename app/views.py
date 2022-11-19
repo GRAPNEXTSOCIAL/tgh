@@ -9,7 +9,7 @@ from django.shortcuts import redirect, render,HttpResponsePermanentRedirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.views import View
-from .models import CASHIER, MANAGER,ACCOUNTANT,  STAFF_CATEGORY_CHOICES, Color, Coupon, Customer, Product, Cart, OrderPlaced, Coupon, Size, Supplier, Tax, Itemgroup, Category, Purchase
+from .models import CASHIER, MANAGER, ACCOUNTANT,  STAFF_CATEGORY_CHOICES, Color, Coupon, Customer, Product, Cart, OrderPlaced, Coupon, Size, Supplier, Tax, Itemgroup, Category, Purchase
 from .forms import CartForm, ColorForm, SizeForm, SupplierForm, CouponForm, CustomerRegistrationForm, CustomerProfileForm, OrderPlacedForm, ProductForm, CustomerForm, TaxForm, ItemgroupForm, CategoryForm, PurchaseForm   
 from django.db.models import Q
 from django.http import JsonResponse
@@ -254,13 +254,11 @@ def group_insert(request):
         forms = ItemgroupForm(request.POST, request.FILES)
         if forms.is_valid():
             forms.save()
-            # messages.success(request, 'Your changed are saved Successfully......!!!')
             return redirect(group_insert)
     else:
         forms = ItemgroupForm
         if 'submitted' in request.GET:
             submitted = True
-    # messages.success(request, 'Your changed are saved Successfully......!!!')
     return render(request, 'admin_app/group_insert.html', {'forms':forms, 'submitted':submitted})
 
 # Category insert

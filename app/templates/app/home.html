@@ -41,16 +41,17 @@
   {% for cg in category_group %}
     
       <div class="col-md-2">
-   <div class="card">     
+   <!-- <div class="card">      -->
    
-    <a href="#" class="btn"><div class="item">
-      <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
-      <img src="{{ cg.item_group_image.url }}" alt="" height="200px">
+    <a href="{% url 'show-category' %}" class="btn"><div class="item">
+      <!-- <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i> -->
+      <img src="{{ cg.item_group_image.url }}" alt="" style="border-radius:70%;height:150px;width:150px;">
+      <br>
       <span class="fw-bold" style="text-transform: capitalize;">{{ cg.item_group_name }}</span>
     </div></a>
     
        
-      </div>
+      <!-- </div> -->
     </div>
     {% endfor %} 
 </div>
@@ -106,6 +107,7 @@
 <div class="container">
   <img src="{% static 'app/images/banner/b5.jpg' %}" class="d-block w-100" alt="...">
 </div> 
+
 <!-- End Live Sale Section -->
 {% endblock livesale %}
 
@@ -113,7 +115,19 @@
 <!-- 1st Product Slider -->
 <div class="m-3">
  <h2>THE GROCERY HOUSE Snacks, <span style="color: red;">Hot Drinks & Dryfruits</span></h2>
- 
+ <div class="owl-carousel" id="slider2">
+  {% for d in product %}
+    <a href="{% url 'product-detail' d.id %}" class="btn"><div class="item">
+      <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
+      <img src="{{ d.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ d.title }}</span><br>
+      <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{d.selling_price}}</small>
+      <span class="fs-5" style="font-weight:bold;"> ₹{{ d.discounted_price }}</span>
+        <br>
+        <a class="btn btn-warning">Add to Cart</a>
+        <button class="btn btn-info">Bye Now</button>
+    </div></a>
+    {% endfor %}
+ </div>
 </div>
 <!-- End 1st Product Slider -->
 
@@ -148,8 +162,8 @@
 <br>
 <div class="mx-2">
 <!-- Slider 1 -->
-  <div class="owl-carousel" id="slider1">
-    {% for d in drinks %}
+<div class="owl-carousel" id="slider2">
+  {% for d in product %}
     <a href="{% url 'product-detail' d.id %}" class="btn"><div class="item">
       <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
       <img src="{{ d.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ d.title }}</span><br>
@@ -159,8 +173,8 @@
         <a class="btn btn-warning">Add to Cart</a>
         <button class="btn btn-info">Bye Now</button>
     </div></a>
-    {% endfor %} 
-  </div>
+    {% endfor %}
+ </div>
 </div>
 <!-- End Payment Info Section -->
 
@@ -189,18 +203,18 @@
 <div class="mx-4">
   <center><h1 style="font-family:'Lora', serif; font-weight: bold;color: black;"><b>Vegitables</b></h1></center>
 <!-- Slider 3 -->
-<div class="owl-carousel" id="slider3">
-  {% for v in Vegitables %}
-  <a href="{% url 'product-detail' v.id %}" class="btn"><div class="item">
-    <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
-    <img src="{{ v.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ v.title }}</span><br>
-    <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{v.selling_price}}</small>
-    <span class="fs-5" style="font-weight:bold;"> ₹{{ v.discounted_price }}</span>
-      <br>
-      <button class="btn btn-warning">Add to Cart</button>
-      <button class="btn btn-info">Bye Now</button>
+<div class="owl-carousel" id="slider2">
+  {% for d in product %}
+    <a href="{% url 'product-detail' d.id %}" class="btn"><div class="item">
+      <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
+      <img src="{{ d.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ d.title }}</span><br>
+      <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{d.selling_price}}</small>
+      <span class="fs-5" style="font-weight:bold;"> ₹{{ d.discounted_price }}</span>
+        <br>
+        <a class="btn btn-warning">Add to Cart</a>
+        <button class="btn btn-info">Bye Now</button>
     </div></a>
-  {% endfor %}
+    {% endfor %}
  </div>
 </div>
 <br>
@@ -245,18 +259,18 @@
   <center><h1 style="font-family:'Lora', serif; font-weight: bold;color: black;"><b>Snacks</b></h1></center>
   <!-- Slider 5 -->
   <div class="owl-carousel" id="slider2">
-   {% for s in Snacks %}
-   <a href="{% url 'product-detail' s.id %}" class="btn"><div class="item">
-    <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
-    <img src="{{ s.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ s.title }}</span><br>
-    <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{s.selling_price}}</small>
-    <span class="fs-5" style="font-weight:bold;"> ₹{{ s.discounted_price }}</span>
-      <br>
-      <button class="btn btn-warning">Add to Cart</button>
-      <button class="btn btn-info">Bye Now</button>  
-  </div></a>
-   {% endfor %}
-  </div>
+    {% for d in product %}
+      <a href="{% url 'product-detail' d.id %}" class="btn"><div class="item">
+        <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
+        <img src="{{ d.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ d.title }}</span><br>
+        <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{d.selling_price}}</small>
+        <span class="fs-5" style="font-weight:bold;"> ₹{{ d.discounted_price }}</span>
+          <br>
+          <a class="btn btn-warning">Add to Cart</a>
+          <button class="btn btn-info">Bye Now</button>
+      </div></a>
+      {% endfor %}
+   </div>
  </div>
  <br>
  <!-- End 5th Product Slider -->
@@ -322,19 +336,18 @@
       <center><h1 style="font-family:'Lora', serif; font-weight: bold;color: black;"><b>Protins</b></h1></center>
       <!-- Slider 9 -->
       <div class="owl-carousel" id="slider2">
-       {% for pr in Protins %}
-       <a href="{% url 'product-detail' pr.id %}" class="btn"><div class="item">
-        <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
-        <img src="{{ pr.product_image.url }}" alt="" height="200px"><span class="fw-bold"style="text-transform: capitalize;">{{ pr.title }}</span><br>
-        <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{pr.selling_price}}</small>
-        <span class="fs-5" style="font-weight:bold;"> ₹{{ pr.discounted_price }}</span>
-      <br>
-      <button class="btn btn-warning">Add to Cart</button>
-      <button class="btn btn-info">Bye Now</button>
-      </div></a>
-       {% endfor %}
-      </div>
-     </div>
+        {% for d in product %}
+          <a href="{% url 'product-detail' d.id %}" class="btn"><div class="item">
+            <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
+            <img src="{{ d.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ d.title }}</span><br>
+            <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{d.selling_price}}</small>
+            <span class="fs-5" style="font-weight:bold;"> ₹{{ d.discounted_price }}</span>
+              <br>
+              <a class="btn btn-warning">Add to Cart</a>
+              <button class="btn btn-info">Bye Now</button>
+          </div></a>
+          {% endfor %}
+       </div>
      <br>
      <!-- End 9th Product Slider -->
      <div class="mx-3">
@@ -409,18 +422,18 @@
       <center><h1 style="font-family:'Lora', serif; font-weight: bold;color: black;"><b>Other <span style="color: red;">Home Products</span></b></h1></center>
       <!-- Slider 11 -->
       <div class="owl-carousel" id="slider2">
-       {% for ohp in OtherHomeProdects %}
-       <a href="{% url 'product-detail' ohp.id %}" class="btn"><div class="item">
-        <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
-        <img src="{{ ohp.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ ohp.title }}</span><br>
-        <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{ohp.selling_price}}</small>
-        <span class="fs-5" style="font-weight:bold;"> ₹{{ ohp.discounted_price }}</span>
-      <br>
-      <button class="btn btn-warning">Add to Cart</button>
-      <button class="btn btn-info">Bye Now</button>
-      </div></a>
-       {% endfor %}
-      </div>
+        {% for d in product %}
+          <a href="{% url 'product-detail' d.id %}" class="btn"><div class="item">
+            <i class="fa-regular fa-heart" style=" margin-left: 150px;"></i>
+            <img src="{{ d.product_image.url }}" alt="" height="200px"><span class="fw-bold" style="text-transform: capitalize;">{{ d.title }}</span><br>
+            <small class="fw-light text-decoration-line-through" style="color: rgba(12, 9, 9, 0.782);">₹{{d.selling_price}}</small>
+            <span class="fs-5" style="font-weight:bold;"> ₹{{ d.discounted_price }}</span>
+              <br>
+              <a class="btn btn-warning">Add to Cart</a>
+              <button class="btn btn-info">Bye Now</button>
+          </div></a>
+          {% endfor %}
+       </div>
      </div>
      <br>
      <!-- End 11th Product Slider -->

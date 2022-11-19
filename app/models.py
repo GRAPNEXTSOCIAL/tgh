@@ -116,10 +116,12 @@ class Category(models.Model):
         return self.category
 
 class Product(models.Model):
-    group = models.ForeignKey(Itemgroup, on_delete=models.CASCADE, null=True)
-    item_type = models.TextField()
-    manufacturer = models.TextField()
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True)
+    manufacturer = models.TextField()
+    group = models.ForeignKey(Itemgroup, on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    brand = models.CharField(max_length=100)
+    item_type = models.TextField()
     title = models.CharField(max_length=100)
     barcode = models.CharField(max_length=100)    
     item_size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
@@ -130,14 +132,12 @@ class Product(models.Model):
     discounted_price = models.FloatField()
     purchase_tax_type = models.CharField(max_length=30)
     purchase_tax = models.FloatField()
-    selling_tax = models.FloatField()
-    description = models.TextField()
-    brand = models.CharField(max_length=100)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    selling_tax = models.FloatField()  
     product_purchase_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
     manufacture_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
     expiry_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
     alertment_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
+    description = models.TextField()
     product_image = models.ImageField(upload_to='productimg')
 
 

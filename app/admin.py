@@ -89,9 +89,9 @@ class CustomerModelAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductModelAdmin(admin.ModelAdmin):
     list_display = ['id',
+    'supplier',
     'group', 
     'item_type', 
-    'supplier', 
     'manufacturer', 
     'title', 
     'barcode', 
