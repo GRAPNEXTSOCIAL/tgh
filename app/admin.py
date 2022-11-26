@@ -14,7 +14,9 @@ from .models import (
     Tax, 
     Itemgroup,
     Category,
-    Purchase,   
+    Purchase,
+    PurchaseProduct,    
+    PaymentMode, 
 
 )
 from django.contrib.auth.admin import UserAdmin
@@ -194,4 +196,37 @@ class PurchaseModelAdmin(admin.ModelAdmin):
     'grand_total'
     ]
 
+@admin.register(PurchaseProduct)
+class PurchaseProductModelAdmin(admin.ModelAdmin):
+    list_display = [
+            'id', 
+            'pur_bill_no', 
+            'barcode', 
+            'product_description', 
+            'article_no', 
+            'size', 
+            'qty', 
+            'free', 
+            'p_price', 
+            'mrp', 
+            'tax', 
+            'disc1', 
+            'd_Amt1', 
+            'disc2', 
+            'd_Amt2', 
+            'l_Cost', 
+            'tot_Cost', 
+            's_Price', 
+            'total', 
+            'marg'
+        ]
 
+@admin.register(PaymentMode)
+class PaymentModeModelAdmin(admin.ModelAdmin):
+    list_display = ['id', 
+        'by_cash', 
+        'by_card', 
+        'by_credit', 
+        'sdx_fin', 
+        'by_upi'
+    ]

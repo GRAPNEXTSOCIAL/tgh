@@ -76,22 +76,29 @@
           Date and Time :-
           <p id="displayDateTime"></p>
         </h6>
-        <center><b><label class="billno">Bill no :</label></b></center>
-        <center><b><label>GSTIN :</label></b></center>
+        <div>
+          <h6>Cashier :- 
+            {% if request.user.is_authenticated %}
+              {{request.user.username|capfirst}}
+            {% endif %}
+          </h6>
+          </div>     
+        <center><b><label class="billno">Bill no :- </label></b></center>
+        <center><b><label>GSTIN :- </label></b></center>
         <h6>========================================</h6>
         <h6>========================================</h6>
 
         <div class="customer-info">
           <div>
-            <label>Phone: </label>
+            <label>Phone :- </label>
             <span name="custphone"></span>
           </div>
           <div>
-            <label>Name: </label>
+            <label>Name :- </label>
             <span name="custname"></span>
           </div>
           <div>
-            <label>Email: </label>
+            <label>Email :- </label>
             <span name="custemail"></span>
           </div>
         </div>

@@ -42,6 +42,8 @@ urlpatterns = [
     
     path('registration/', views.CustomerRegistrationFormView.as_view(), name='customerregistration'),
 
+    path('payment/', views.payment_mode_insert, name='payment-mode'), 
+
     # for admin
     path('admin-home/', views.admin_home, name="admin-home"),
     path('dashboard', views.dashboard, name="dashboard"),
@@ -95,7 +97,9 @@ urlpatterns = [
     path('supplierdelete/<int:id>/', views.supplier_delete, name="supplier-delete"), 
     path('supplierupdate/<int:id>/', views.supplier_update, name='supplier-update'), 
 
-
+    
+    path('success_bill', views.all_success_bills, name='all-success-bill'), 
+    # path('holded_bill', views.all_hold_bills, name="all-hold-boll"), 
     path('bills', views.bill_page, name="list-bills"),
     path('add-product', views.productinsert, name="P-insert"),
     path('add-customer', views.customerinsert, name="Cu-insert"),
@@ -108,7 +112,8 @@ urlpatterns = [
     path('add-size', views.size_insert, name="size-insert"), 
     path('add-group', views.group_insert, name="g-insert"),
     path('add-category', views.category_insert, name='cat-insert'),  
-    path('add-purchase', views.purchase_insert, name='purchase-insert'), 
+    path('add-purchase', views.purchase_insert, name='purchase-insert'),
+    path('add-purchase_product', views.purchase_product_insert, name='pur_pro_ins'), 
     
 
     # for staff
@@ -124,8 +129,17 @@ urlpatterns = [
 
 
     # for Accountant
+    path('tax', views.taxes, name='tax-list'), 
+    path('coupon', views.coupon, name='coupon-list'), 
+    path('purchases', views.purchase, name='purchgase-list'), 
     path('succ_bill', views.success_bills, name='success_bill'), 
-    path('hold_bill', views.hold_bills, name="hold_boll"), 
+    path('hold_bill', views.hold_bills, name="hold_bill"), 
+
+    path('tax-add', views.insert_tax, name="insert-tax"),
+    path('coupon-add', views.insert_coupon, name="insert-coupon"),
+    path('purchase-add', views.insert_purchase, name='insert-purchase'), 
+
+
 
 
     # for cashier
@@ -135,7 +149,7 @@ urlpatterns = [
 
     path('exit', views.exit_bill, name='exit_bill'),
     
-    path('demo', views.bill_print, name="demo"), 
+    path('demo', views.bill_print, name="demo"),  
 
 
     # path('api/', include(router.urls)),

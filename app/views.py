@@ -9,8 +9,8 @@ from django.shortcuts import redirect, render,HttpResponsePermanentRedirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.views import View
-from .models import CASHIER, MANAGER, ACCOUNTANT,  STAFF_CATEGORY_CHOICES, Color, Coupon, Customer, Product, Cart, OrderPlaced, Coupon, Size, Supplier, Tax, Itemgroup, Category, Purchase
-from .forms import CartForm, ColorForm, SizeForm, SupplierForm, CouponForm, CustomerRegistrationForm, CustomerProfileForm, OrderPlacedForm, ProductForm, CustomerForm, TaxForm, ItemgroupForm, CategoryForm, PurchaseForm   
+from .models import CASHIER, MANAGER, ACCOUNTANT,  STAFF_CATEGORY_CHOICES, Color, Coupon, Customer, Product, Cart, OrderPlaced, Coupon, Size, Supplier, Tax, Itemgroup, Category, Purchase, PaymentMode
+from .forms import CartForm, ColorForm, SizeForm, SupplierForm, CouponForm, CustomerRegistrationForm, CustomerProfileForm, OrderPlacedForm, ProductForm, CustomerForm, TaxForm, ItemgroupForm, CategoryForm, PurchaseForm, PaymentModeForm, PurchaseProductForm  
 from django.db.models import Q
 from django.http import JsonResponse
 # For Function based login view
@@ -22,6 +22,7 @@ from .models import Product, Cart, Customer, OrderPlaced, User
 from django.template import RequestContext
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
+
 
 
 def home(request):
@@ -47,63 +48,33 @@ def login(request):
     else:
         return redirect('home')
 
+
 def dashboard(request):
     product = Product.objects.all()
     supplier = Supplier.objects.all()
     return render(request, 'admin_app/admin_home.html', {'product_list':product, 'supplier_list':supplier})
 
-# Staff view
-def staff_dashboard(request):
-    return render(request, 'staff/staff_home.html')
 
-# Cashier view
-def cashier_dashboard(request):
-    return render(request, 'cash_counter/cashier_home.html')
-
+# All Lists (admin)
 # Product View list(Admin)
 def all_products(request):
     product_list = Product.objects.all()
     return render(request, 'admin_app/products.html', {'product_list':product_list})
-
-# Product View list(Staff)
-def all_product(request):
-    products_list = Product.objects.all()
-    return render(request, 'staff/products.html', {'products_list':products_list})
-
-# Product View list(cashier)
-def all_productss(request):
-    productss_list = Product.objects.all()
-    return render(request, 'cash_counter/products.html', {'productss_list':productss_list})
 
 # Cart View list(Admin)
 def all_carts(request):
     cart_list = Cart.objects.all()
     return render(request, 'admin_app/carts.html', {'cart_list':cart_list})
 
-# Cart View list(Staff)
-def all_cart(request):
-    carts_list = Cart.objects.all()
-    return render(request, 'staff/carts.html', {'carts_list':carts_list})
-
 # Customer View list(Admin)
 def all_customer(request):
     customer_list = Customer.objects.all()
     return render(request, 'admin_app/customers.html', {'customer_list':customer_list})
 
-# Customer View list(Staff)
-def all_customeres(request):
-    customers_list = Customer.objects.all()
-    return render(request, 'staff/customers.html', {'customers_list':customers_list})
-
 # Order-Placed list(Admin)
 def all_orderplaced(request):
     orderplaced_list = OrderPlaced.objects.all()
     return render(request, 'admin_app/order_placed.html', {'orderplaced_list':orderplaced_list})
-
-# Order-Placed list(Staff)
-def all_orderplace(request):
-    orderplace_list = OrderPlaced.objects.all()
-    return render(request, 'staff/order_placed.html', {'orderplace_list':orderplace_list})
 
 # Users list(Admin)
 def all_users(request):
@@ -111,27 +82,7 @@ def all_users(request):
     # print(users_list)
     return render(request, 'admin_app/users.html', {'users_list':users_list})
 
-# Users insert
-def user_insert(request):
-    submitted = False
-    if request.method == "POST":
-        form = CustomerRegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(user_insert)
-    else:
-        form = CustomerRegistrationForm()
-        if 'submitted' in request.GET:
-            submitted =True
-    return render(request, 'admin_app/userinsertform.html', {'form':form, 'submitted':submitted})
-
-# Users list(Staff)
-def all_user(request):
-    user_list = User.objects.all()
-    # print(user_list)
-    return render(request, 'staff/users.html', {'user_list':user_list})
-
-# Coupon List
+# Coupon List(admin)
 def all_coupon(request):
     coupon_list = Coupon.objects.all()
     return render(request, 'admin_app/coupon.html', {'coupon_list':coupon_list})
@@ -171,9 +122,90 @@ def all_supplier(request):
     supplier_list = Supplier.objects.all()
     return render(request, 'admin_app/supplier.html', {'supplier_list':supplier_list})
 
-# Bill-page
-def bill_page(request):
-    return render(request, 'bills.html')
+# Hold bill(admin)
+def all_hold_bills(request):
+    hold_bill_list = Cart.objects.filter(hold=True)
+    return render(request, 'admin_app/hold_bill_list.html', {'hold_bill_list':hold_bill_list})
+
+# Success bill(admin)
+def all_success_bills(request):
+    success_bill = Cart.objects.filter(hold=False)
+    return render(request, 'admin_app/success_bill_list.html', {'success_bill':success_bill})
+
+
+# All Lists (staff)
+# Staff view
+def staff_dashboard(request):
+    return render(request, 'staff/staff_home.html')
+
+# Product View list(Staff)
+def all_product(request):
+    products_list = Product.objects.all()
+    return render(request, 'staff/products.html', {'products_list':products_list})
+
+# Cart View list(Staff)
+def all_cart(request):
+    carts_list = Cart.objects.all()
+    return render(request, 'staff/carts.html', {'carts_list':carts_list})
+
+# Customer View list(Staff)
+def all_customeres(request):
+    customers_list = Customer.objects.all()
+    return render(request, 'staff/customers.html', {'customers_list':customers_list})
+
+# Order-Placed list(Staff)
+def all_orderplace(request):
+    orderplace_list = OrderPlaced.objects.all()
+    return render(request, 'staff/order_placed.html', {'orderplace_list':orderplace_list})
+
+# Users list(Staff)
+def all_user(request):
+    user_list = User.objects.all()
+    # print(user_list)
+    return render(request, 'staff/users.html', {'user_list':user_list})
+
+
+# Accoutant List
+# Purchase List(accountant)
+def purchase(request):
+    purchase_list = Purchase.objects.all()
+    return render(request, 'accountant_app/purchase.html', {'purchase_list':purchase_list})
+
+# Coupon List(accountant)
+def coupon(request):
+    coupon_list = Coupon.objects.all()
+    return render(request, 'accountant_app/coupons.html', {'coupon_list':coupon_list})
+
+# Tax list(accountant)
+def taxes(request):
+    tax_list = Tax.objects.all()
+    return render(request, 'accountant_app/taxes.html', {'tax_list':tax_list})
+
+# Cashier view
+def cashier_dashboard(request):
+    return render(request, 'cash_counter/cashier_home.html')
+
+
+# Product View list(cashier)
+def all_productss(request):
+    productss_list = Product.objects.all()
+    return render(request, 'cash_counter/products.html', {'productss_list':productss_list})
+
+# Admin insert
+# Users insert(admin)
+def user_insert(request):
+    submitted = False
+    if request.method == "POST":
+        form = CustomerRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(user_insert)
+    else:
+        form = CustomerRegistrationForm()
+        if 'submitted' in request.GET:
+            submitted =True
+    return render(request, 'admin_app/userinsertform.html', {'form':form, 'submitted':submitted})
+
 
 # Product insert(Admin)
 def productinsert(request):
@@ -203,7 +235,7 @@ def product_insert(request):
             submitted = True
     return render(request, 'staff/productinsertform.html', {'form':form, 'submitted':submitted})
 
-# Customer insert
+# Customer insert(Admin)
 def customerinsert(request):
     if not request.user.is_superuser:
         return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -219,7 +251,7 @@ def customerinsert(request):
             submitted = True
     return render(request, 'admin_app/customerinsertform.html', {'form':form, 'submitted':submitted})
 
-# Cart insert
+# Cart insert(Admin)
 def cartinsert(request):
     submitted = False
     if request.method == "POST":
@@ -233,7 +265,7 @@ def cartinsert(request):
             submitted = True
     return render(request, 'admin_app/cartinsertform.html', {'form':form, 'submitted':submitted})
 
-# Orderplaced insert
+# Orderplaced insert(Admin)
 def order_placed(request):
     submitted = False
     if request.method == "POST":
@@ -247,7 +279,7 @@ def order_placed(request):
             submitted = True
     return render(request, 'admin_app/opinsert.html', {'form':form, 'submitted':submitted})
 
-# Group insert
+# Group insert(Admin)
 def group_insert(request):
     submitted = False
     if request.method == "POST":
@@ -256,12 +288,12 @@ def group_insert(request):
             forms.save()
             return redirect(group_insert)
     else:
-        forms = ItemgroupForm
+        forms = ItemgroupForm()
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'admin_app/group_insert.html', {'forms':forms, 'submitted':submitted})
 
-# Category insert
+# Category insert(Admin)
 def category_insert(request):
     submitted = False
     if request.method == "POST":
@@ -270,12 +302,12 @@ def category_insert(request):
             forms.save()
             return redirect(category_insert)
     else:
-        forms = CategoryForm
+        forms = CategoryForm()
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'admin_app/category_insert.html', {'forms':forms, 'submitted':submitted})
 
-# Category insert
+# Purchase insert(Admin)
 def purchase_insert(request):
     submitted = False
     if request.method == "POST":
@@ -284,12 +316,24 @@ def purchase_insert(request):
             forms.save()
             return redirect(purchase_insert)
     else:
-        forms = PurchaseForm
+        forms = PurchaseForm()
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'admin_app/purchase_insert.html', {'forms':forms, 'submitted':submitted})
 
-# Coupon insert
+# Purchase Product Insert(Admin)
+def purchase_product_insert(request):
+    submitted = False
+    if request.method == "POST":
+        forms = PurchaseProductForm(request.POST)
+        return redirect(purchase_product_insert)
+    else:
+        forms = PurchaseProductForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'admin_app/purchase_product_insert.html', {'forms':forms, 'submitted':submitted})
+
+# Coupon insert(Admin)
 def coupon_insert(request):
     submitted = False
     if request.method == 'POST':
@@ -298,12 +342,12 @@ def coupon_insert(request):
             form.save()
             return redirect(coupon_insert)
     else:
-        form = CouponForm
+        form = CouponForm()
         if 'submitted' in request.GET:
             submitted = True 
     return render(request, 'admin_app/coupon_insert.html', {'form':form, 'submitted':submitted})
 
-# Tax insert
+# Tax insert(Admin)
 def tax_insert(request):
     submitted = False
     if request.method == "POST":
@@ -312,12 +356,12 @@ def tax_insert(request):
             form.save()
             return redirect(tax_insert)
     else:
-        form = TaxForm
+        form = TaxForm()
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'admin_app/tax_insert.html', {'form':form, 'submitted':submitted})
 
-# color insert
+# color insert(Admin)
 def color_insert(request):
     submitted = False
     if request.method == "POST":
@@ -326,12 +370,12 @@ def color_insert(request):
             form.save()
             return redirect(color_insert)
     else:
-        form = ColorForm
+        form = ColorForm()
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'admin_app/color_insert.html', {'form':form, 'submitted':submitted}) 
 
-# Supplier insert
+# Supplier insert(Admin)
 def supplier_insert(request):
     submitted = False
     if request.method == "POST":
@@ -340,12 +384,12 @@ def supplier_insert(request):
             form.save()
             return redirect(supplier_insert)
     else:
-        form = SupplierForm
+        form = SupplierForm()
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'admin_app/supplier_insert.html', {'form':form, 'submitted':submitted})
 
-    # Size Insert
+    # Size Insert(Admin)
 def size_insert(request):
     submitted = False
     if request.method == "POST":
@@ -354,10 +398,81 @@ def size_insert(request):
             form.save()
             return redirect(size_insert)
     else:
-        form = SizeForm
+        form = SizeForm()
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'admin_app/size_insert.html', {'form':form, 'submitted':submitted})
+
+# Payment mode Insert
+def payment_mode_insert(request):
+    submitted = False
+    if request.method == "POST":
+        form = PaymentModeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(bill_print)
+    else:
+        form = PaymentModeForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'payment_mode.html', {'form':form, 'submitted':submitted})
+
+# Accountant insert
+# Category insert(Accountant)
+def insert_purchase(request):
+    submitted = False
+    if request.method == "POST":
+        forms = PurchaseForm(request.POST)
+        if forms.is_valid():
+            forms.save()
+            return redirect(insert_purchase)
+    else:
+        forms = PurchaseForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'accountant_app/purchase_insert.html', {'forms':forms, 'submitted':submitted})
+
+# Purchase Product Insert(Accountant)
+def purchase_product_inserts(request):
+    submitted = False
+    if request.method == "POST":
+        forms = PurchaseProductForm(request.POST)
+        return redirect(purchase_product_inserts)
+    else:
+        forms = PurchaseProductForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'accountant_app/purchase_product_insert.html', {'forms':forms, 'submitted':submitted})
+
+
+# Coupon insert(Accountant)
+def insert_coupon(request):
+    submitted = False
+    if request.method == 'POST':
+        form = CouponForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(insert_coupon)
+    else:
+        form = CouponForm()
+        if 'submitted' in request.GET:
+            submitted = True 
+    return render(request, 'accountant_app/coupon_insert.html', {'form':form, 'submitted':submitted})
+
+# Tax insert(accountant)
+def insert_tax(request):
+    submitted = False
+    if request.method == "POST":
+        form = TaxForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(insert_tax)
+    else:
+        form = TaxForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'accountant_app/tax_insert.html', {'form':form, 'submitted':submitted})
+
 
 # User Views
 #Home/Product view
@@ -557,7 +672,8 @@ def payment_done(request):
     user = request.user
     custid = request.GET.get('custid')
     customer = Customer.objects.get(id=custid)
-    cart = Cart.objects.filter(user=user)
+    customer = Customer.objects.filter(user=user).first()
+    cart = Cart.objects.filter(customer=customer)
     for c in cart:
         OrderPlaced(user=user, customer=customer, product=c.product, quantity=c.quantity).save()
         c.delete()
@@ -584,6 +700,9 @@ class ProfileView(View):
             messages.success(request, 'Congratulations..!! ProfileUpdated Successfully.')
         return render(request, 'app/profile.html', {'form':form, 'active':'btn-primary'})
 
+# Bill-page
+def bill_page(request):
+    return render(request, 'bills.html')
 
 def exit_bill(request):
     return render(request, 'app/home.html')
@@ -591,13 +710,15 @@ def exit_bill(request):
 def bill_print(request):
     return render(request, 'bill_print.html')
 
+# Hold bill(accountant)
 def hold_bills(request):
     hold_bill_list = Cart.objects.filter(hold=True)
-    return render(request, 'accountant_app/hold_bill_list.html', {'hold_bill_list':hold_bill_list})
+    return render(request, 'cash_counter/hold_bill_list.html', {'hold_bill_list':hold_bill_list})
 
+# Success bill(accountant)
 def success_bills(request):
     success_bill = Cart.objects.filter(hold=False)
-    return render(request, 'accountant_app/success_list.html', {'success_bill':success_bill})
+    return render(request, 'accountant_app/success_bill_list.html', {'success_bill':success_bill})
 
 def navbar_list(request):
     nav_list = Itemgroup.objects.all()

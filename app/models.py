@@ -54,6 +54,13 @@ STATUS_CHOICES = (
     ('Cancel', 'Cancel')
 )
 
+TAX_TYPE_CHOICES = (
+    ('SGST/CGST', 'SGST/CGST'), 
+    ('IGST', 'IGST'), 
+    ('UNREGD', 'UNREGD'), 
+    ('COMPOSITE', 'COMPOSITE')
+)
+
 class Color(models.Model):
     color_code = models.CharField(max_length=5)
     item_color = models.CharField(max_length=50)
@@ -192,7 +199,9 @@ class Tax(models.Model):
 
 class Purchase(models.Model):
     trans_date = models.DateField(auto_now_add=False, auto_now=False, blank=True)
+    gstin = models.CharField(max_length=100)
     pur_bill_no = models.CharField(max_length=50)
+    bill_type = models.CharField(choices=TAX_TYPE_CHOICES, max_length=50)
     supplier_name = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True)
     total_qty = models.IntegerField()
     gross_amt = models.FloatField()
@@ -202,3 +211,34 @@ class Purchase(models.Model):
     o_charge = models.FloatField()
     o_disc = models.FloatField()
     grand_total = models.FloatField()
+
+    def __str__(self) -> str:
+        return self.pur_bill_no
+
+class PurchaseProduct(models.Model):
+    pur_bill_no = models.ForeignKey(Purchase, on_delete=models.CASCADE)
+    barcode = models.CharField(max_length=100)
+    product_description = models.CharField(max_length=250)
+    article_no = models.IntegerField(null=True, default=0)
+    size = models.CharField(max_length=50)
+    qty = models.IntegerField(null=True)
+    free = models.FloatField(null=True, default=0)
+    p_price = models.FloatField(null=True)
+    mrp = models.FloatField(null=True)
+    tax = models.FloatField(null=True)
+    disc1 = models.FloatField(null=True, default=0)
+    d_Amt1 = models.FloatField(null=True, default=0)
+    disc2 = models.FloatField(null=True, default=0)
+    d_Amt2 = models.FloatField(null=True, default=0)
+    l_Cost = models.FloatField(null=True)
+    tot_Cost = models.FloatField(null=True)
+    s_Price = models.FloatField(null=True)
+    total = models.FloatField(null=True)
+    marg = models.FloatField(null=True)
+
+class PaymentMode(models.Model):
+    by_cash = models.FloatField(null=True, default=0)
+    by_card = models.FloatField(null=True, default=0)
+    by_credit = models.FloatField(null=True, default=0)
+    sdx_fin = models.FloatField(null=True, default=0)
+    by_upi = models.FloatField(null=True, default=0)
