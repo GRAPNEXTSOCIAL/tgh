@@ -174,7 +174,25 @@ def color_all(request):
     color_list = Color.objects.all()
     return render(request, 'staff/color.html', {'color_list':color_list})
 
- 
+# Size list(staff)
+def size_all(request):
+    size_list = Size.objects.all()
+    return render(request, 'staff/size.html', {'size_list':size_list})
+
+ # Group list(staff)
+def group_all(request):
+    group_list = Itemgroup.objects.all()
+    return render(request, 'staff/group.html', {'group_list':group_list})
+
+# Tax list(staff)
+def tax_all(request):
+    tax_list = Tax.objects.all()
+    return render(request, 'staff/tax.html', {'tax_list':tax_list})
+
+# Coupon List(staff)
+def coupon_all(request):
+    coupon_list = Coupon.objects.all()
+    return render(request, 'staff/coupon.html', {'coupon_list':coupon_list})
 
 
 # Accoutant List
@@ -431,6 +449,76 @@ def insert_category(request):
             submitted = True
     return render(request, 'staff/category_insert.html', {'forms':forms, 'submitted':submitted})
 
+# color insert(manager)
+def insert_color(request):
+    submitted = False
+    if request.method == "POST":
+        form = ColorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(insert_color)
+    else:
+        form = ColorForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'staff/color_insert.html', {'form':form, 'submitted':submitted}) 
+
+# Size Insert(manager)
+def insert_size(request):
+    submitted = False
+    if request.method == "POST":
+        form = SizeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(insert_size)
+    else:
+        form = SizeForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'staff/size_insert.html', {'form':form, 'submitted':submitted})
+
+    # Group insert(manager)
+def insert_group(request):
+    submitted = False
+    if request.method == "POST":
+        forms = ItemgroupForm(request.POST, request.FILES)
+        if forms.is_valid():
+            forms.save()
+            return redirect(insert_group)
+    else:
+        forms = ItemgroupForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'staff/group_insert.html', {'forms':forms, 'submitted':submitted})
+
+# Tax insert(manager)
+def insert_taxes(request):
+    submitted = False
+    if request.method == "POST":
+        form = TaxForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(insert_taxes)
+    else:
+        form = TaxForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'staff/tax_insert.html', {'form':form, 'submitted':submitted})
+
+# Coupon insert(manager)
+def add_coupon_insert(request):
+    submitted = False
+    if request.method == 'POST':
+        form = CouponForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(add_coupon_insert)
+    else:
+        form = CouponForm()
+        if 'submitted' in request.GET:
+            submitted = True 
+    return render(request, 'staff/coupon_insert.html', {'form':form, 'submitted':submitted})
+
 
 
 # Payment mode Insert
@@ -447,8 +535,9 @@ def payment_mode_insert(request):
             submitted = True
     return render(request, 'payment_mode.html', {'form':form, 'submitted':submitted})
 
+
 # Accountant insert
-# Category insert(Accountant)
+# Purchase insert(Accountant)
 def insert_purchase(request):
     submitted = False
     if request.method == "POST":

@@ -119,17 +119,23 @@ urlpatterns = [
     # for staff
     path('staff-home/', views.staff_home, name= "staff-home"),
     path('staff_dashboard', views.staff_dashboard, name="staff_dashboard"),
-    
     path('prod', views.product_all, name='all-prod-list'),
-    
     path('categories', views.category_all, name="category_all"),
-
-    path('color_s', views.color_all, name="all-color-list"),  
+    path('color_s', views.color_all, name="all-color-list"),
+    path('size', views.size_all, name="size-all"),  
+    path('groups', views.group_all, name="all-group-list"),
+    path('tax', views.tax_all, name="all-tax-list"), 
+    path('coupon_s', views.coupon_all, name="all-coupon-list"),  
 
 
 # Staff Insert
     path('prod_insert', views.prod_insert, name='insert-prod'), 
     path('category_insert', views.insert_category, name="insert-category"), 
+    path('color_insert', views.insert_color, name="insert-color"), 
+    path('size_insert', views.insert_size, name="insert-size"), 
+    path('group_insert', views.insert_group, name="insert-group"),
+    path('tax_insert', views.insert_taxes, name="taxes-insert"),
+    path('coupon_insert', views.add_coupon_insert, name="coupon-insert"), 
 
 
     path('bills', views.bill_page, name="list-bills"),
