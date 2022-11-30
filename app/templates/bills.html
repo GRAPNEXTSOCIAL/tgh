@@ -642,7 +642,7 @@ crossorigin="anonymous"
               data: JSON.stringify(data),
             },
             success: function (data) {
-              location.href = "{% url 'demo' %}?cart_id=" + data.cart_id;
+              location.href = "{% url 'demo' %}?cart_id=" + encodeURIComponent(data.cart_id);
             },
           });
         });

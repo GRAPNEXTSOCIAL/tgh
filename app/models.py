@@ -236,6 +236,23 @@ class PurchaseProduct(models.Model):
     total = models.FloatField(null=True)
     marg = models.FloatField(null=True)
 
+class SalesRegister(models.Model):
+    inv_date = models.DateField(auto_now_add=False, auto_now=False, blank=True)
+    inv_no = models.CharField(max_length=100)
+    total_qty = models.FloatField(null=True)
+    total_amt = models.FloatField(null=True)
+    discount = models.FloatField(null=True)
+    gst_amt = models.FloatField(null=True)
+    grand_total = models.FloatField(null=True)
+    by_cash = models.FloatField(null=True, default=0.00)
+    by_card = models.FloatField(null=True, default=0.00)
+    by_credit = models.FloatField(null=True, default=0.00)
+    sdx_fin = models.FloatField(null=True, default=0.00)
+    by_upi = models.FloatField(null=True, default=0.00)
+    redeem = models.FloatField(null=True, default=0.00)
+    ct_amt = models.FloatField(null=True, default=0.00)
+    refund = models.FloatField(null=True, default=0.00)
+
 class PaymentMode(models.Model):
     by_cash = models.FloatField(null=True, default=0)
     by_card = models.FloatField(null=True, default=0)

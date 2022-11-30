@@ -79,29 +79,30 @@ class CustomerProfileForm(forms.ModelForm):
 class ProductForm(ModelForm):
     class Meta:
         model = Product
-        fields = ['supplier', 
-        'manufacturer',        
-        'group',
-        'category', 
-        'brand', 
-        'item_type',
-        'barcode', 
-        'title', 
-        'item_size', 
-        'item_color', 
-        'actual_mrp', 
-        'purchase_price', 
-        'selling_price', 
-        'discounted_price',
-        'purchase_tax_type',  
-        'purchase_tax', 
-        'selling_tax', 
-        'product_purchase_date',
-        'manufacture_date',  
-        'expiry_date', 
-        'alertment_date',
-        'description', 
-        'product_image'
+        fields = [
+            'supplier', 
+            'manufacturer',        
+            'group',
+            'category', 
+            'brand', 
+            'item_type',
+            'barcode', 
+            'title', 
+            'item_size', 
+            'item_color', 
+            'actual_mrp', 
+            'purchase_price', 
+            'selling_price', 
+            'discounted_price',
+            'purchase_tax_type',  
+            'purchase_tax', 
+            'selling_tax', 
+            'product_purchase_date',
+            'manufacture_date',  
+            'expiry_date', 
+            'alertment_date',
+            'description', 
+            'product_image'
         ]
         widgets = {
             'supplier' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}),
@@ -132,14 +133,15 @@ class ProductForm(ModelForm):
 class CustomerForm(ModelForm):
     class Meta:
         model = Customer
-        fields = ['mobile_no', 
-        'user', 
-        'name', 
-        'email', 
-        'locality', 
-        'city', 
-        'zipcode', 
-        'state'
+        fields = [
+            'mobile_no', 
+            'user', 
+            'name', 
+            'email', 
+            'locality', 
+            'city', 
+            'zipcode', 
+            'state'
         ]
         Widgets = {
             'mobile_no' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Mobile No'}), 
@@ -155,7 +157,10 @@ class CustomerForm(ModelForm):
 class ImageForm(ModelForm):
     class Meta:
         model = Image
-        fields =['product', 'pimage']
+        fields =[
+            'product', 
+            'pimage'
+        ]
         widgets = {
             'product' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
             'pimage' :forms.FileInput(attrs={'class':'form-control'})
@@ -164,7 +169,12 @@ class ImageForm(ModelForm):
 class CartForm(ModelForm):
     class Meta:
         model = Cart
-        fields = ['cart_id', 'customer', 'product', 'quantity']
+        fields = [
+            'cart_id', 
+            'customer', 
+            'product', 
+            'quantity'
+        ]
         Widgets = {
             'cart_id' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Id No'}),
             'customer' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}),
@@ -175,7 +185,14 @@ class CartForm(ModelForm):
 class OrderPlacedForm(ModelForm):
     class Meta:
         model = OrderPlaced
-        fields = ['user', 'customer', 'product', 'quantity', 'order_date', 'status']
+        fields = [
+            'user', 
+            'customer', 
+            'product', 
+            'quantity', 
+            'order_date', 
+            'status'
+        ]
         widgets = {
             'user' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
             'customer' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
@@ -188,7 +205,13 @@ class OrderPlacedForm(ModelForm):
 class CouponForm(ModelForm):
     class Meta:
         model = Coupon
-        fields = ['code', 'valid_from', 'valid_to', 'discount', 'active']                                   
+        fields = [
+            'code', 
+            'valid_from', 
+            'valid_to', 
+            'discount', 
+            'active'
+        ]                                   
         input_type = 'date'                                                                                                                                                                                                                                                                                                                                                                                                                        
         Widgets ={
             'code' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the CouponCode'}), 
@@ -201,7 +224,10 @@ class CouponForm(ModelForm):
 class TaxForm(ModelForm):
     class Meta:
         model = Tax
-        fields = ['tax_type', 'value']
+        fields = [
+            'tax_type', 
+            'value'
+        ]
         Widgets ={
             'tax_type' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Tax Type'}), 
             'value' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Tax Value in %'})
@@ -210,7 +236,10 @@ class TaxForm(ModelForm):
 class ColorForm(ModelForm):
     class Meta:    
         model = Color
-        fields = ['color_code', 'item_color']
+        fields = [
+            'color_code', 
+            'item_color'
+        ]
         widgets = {
             'color_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Color Code'}), 
             'item_color' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Color'})
@@ -219,7 +248,10 @@ class ColorForm(ModelForm):
 class SizeForm(ModelForm):
     class Meta:
         model = Size
-        fields = ('size_code', 'item_size')
+        fields = [
+            'size_code', 
+            'item_size'
+        ]
         Widgets = {
             'size_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Size Code'}), 
             'item_size' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Size'})
@@ -227,7 +259,16 @@ class SizeForm(ModelForm):
 class SupplierForm(ModelForm):
     class Meta:
         model = Supplier
-        fields = ['supplier_code', 'supplier', 'address', 'contact_no', 'supplier_email', 'gstin_no', 'state', 'pin']
+        fields = [
+            'supplier_code', 
+            'supplier', 
+            'address', 
+            'contact_no', 
+            'supplier_email', 
+            'gstin_no', 
+            'state', 
+            'pin'
+        ]
         widgets = {
             'supplier_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Supplier Code'}), 
             'supplier' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Name'}), 
@@ -242,7 +283,12 @@ class SupplierForm(ModelForm):
 class ItemgroupForm(ModelForm):
     class Meta:
         model = Itemgroup
-        fields = ['item_group_code', 'item_group_name', 'item_group_description', 'item_group_image']
+        fields = [
+            'item_group_code', 
+            'item_group_name', 
+            'item_group_description', 
+            'item_group_image'
+        ]
         widgets = {
             'item_group_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Group Code'}), 
             'item_group_name' :forms.TextInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Group Name'}), 
@@ -253,7 +299,11 @@ class ItemgroupForm(ModelForm):
 class CategoryForm(ModelForm):
     class Meta:
         model = Category
-        fields = ['item_group_name', 'category_code', 'category']
+        fields = [
+            'item_group_name', 
+            'category_code', 
+            'category'
+        ]
         widgets = {
            'item_group_name' :forms.Select(attrs={'class':'form-control', 'placeholder':'Select'}), 
            'category_code' :forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Please Enter the Category Code'}), 

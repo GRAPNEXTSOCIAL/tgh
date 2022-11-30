@@ -1,21 +1,21 @@
 from django.contrib import admin
 from .models import (
-    Color,
-    Size,
-    # Prodgroup,  
-    Supplier,  
-    Customer,
-    Product,
-    Cart,
-    OrderPlaced,
-    User,
-    Image,
-    Coupon,
+    Color, 
+    Size, 
+    Supplier, 
+    Customer, 
+    Product, 
+    Cart, 
+    OrderPlaced, 
+    User, 
+    Image, 
+    Coupon, 
     Tax, 
-    Itemgroup,
-    Category,
-    Purchase,
-    PurchaseProduct,    
+    Itemgroup, 
+    Category, 
+    Purchase, 
+    PurchaseProduct, 
+    SalesRegister, 
     PaymentMode, 
 
 )
@@ -26,7 +26,11 @@ from django.utils.translation import gettext_lazy as _
 # Register your models here.
 @admin.register(User)
 class UserModelAdmin(UserAdmin):
-    list_display = ['username', 'first_name', 'staff_category']
+    list_display = [
+        'username', 
+        'first_name', 
+        'staff_category'
+    ]
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
@@ -46,154 +50,163 @@ class UserModelAdmin(UserAdmin):
 
 @admin.register(Color)
 class ColorModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
-    'color_code', 
-    'item_color'
+    list_display = [
+        'id', 
+        'color_code', 
+        'item_color'
     ]
 
 @admin.register(Size)
 class SizeModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
-    'size_code', 
-    'item_size'
+    list_display = [
+        'id', 
+        'size_code', 
+        'item_size'
     ]
-
-# @admin.register(Prodgroup)
-# class ProdgroupModelAdmin(admin.ModelAdmin):
-#     list_display = ['id', 'p_group_code', 'p_group_name', 'p_group_description']
-
 @admin.register(Supplier)
 class SupplierModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
-    'supplier_code', 
-    'supplier', 
-    'address', 
-    'contact_no', 
-    'supplier_email', 
-    'gstin_no', 
-    'state', 
-    'pin'
+    list_display = [
+        'id', 
+        'supplier_code', 
+        'supplier', 
+        'address', 
+        'contact_no', 
+        'supplier_email', 
+        'gstin_no', 
+        'state', 
+        'pin'
     ]
 
 @admin.register(Customer)
 class CustomerModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
-    'mobile_no', 
-    'user', 
-    'name', 
-    'email', 
-    'locality', 
-    'city', 
-    'zipcode', 
-    'state'
+    list_display = [
+        'id', 
+        'mobile_no', 
+        'user', 
+        'name', 
+        'email', 
+        'locality', 
+        'city', 
+        'zipcode', 
+        'state'
     ]
 
 @admin.register(Product)
 class ProductModelAdmin(admin.ModelAdmin):
-    list_display = ['id',
-    'supplier',
-    'group', 
-    'item_type', 
-    'manufacturer', 
-    'title', 
-    'barcode', 
-    'item_size', 
-    'item_color',
-    'purchase_tax_type',  
-    'purchase_price', 
-    'purchase_tax', 
-    'selling_price', 
-    'selling_tax', 
-    'discounted_price', 
-    'description', 
-    'brand', 
-    'category', 
-    'actual_mrp', 
-    'product_purchase_date',
-    'manufacture_date',  
-    'expiry_date',
-    'alertment_date',  
-    'product_image'
+    list_display = [
+        'id',
+        'supplier',
+        'group', 
+        'item_type', 
+        'manufacturer', 
+        'title', 
+        'barcode', 
+        'item_size', 
+        'item_color',
+        'purchase_tax_type',  
+        'purchase_price', 
+        'purchase_tax', 
+        'selling_price', 
+        'selling_tax', 
+        'discounted_price', 
+        'description', 
+        'brand', 
+        'category', 
+        'actual_mrp', 
+        'product_purchase_date',
+        'manufacture_date',  
+        'expiry_date',
+        'alertment_date',  
+        'product_image'
     ]
 
 @admin.register(Image)
 class ImageModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
-    'product', 
-    'pimage'
+    list_display = [
+        'id', 
+        'product', 
+        'pimage'
     ]
 
 @admin.register(Cart)
 class CartModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
-    'customer', 
-    'product', 
-    'quantity'
+    list_display = [
+        'id', 
+        'customer', 
+        'product', 
+        'quantity'
     ]
 
 @admin.register(OrderPlaced)
 class OrderPlacedModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
-    'user', 
-    'customer', 
-    'product', 
-    'quantity', 
-    'order_date', 
-    'status'
+    list_display = [
+        'id', 
+        'user', 
+        'customer', 
+        'product', 
+        'quantity', 
+        'order_date', 
+        'status'
     ]
 
 @admin.register(Coupon)
 class CouponModelAdmin(admin.ModelAdmin):
-    list_display = ['code', 
-    'valid_from', 
-    'valid_to', 
-    'discount', 
-    'active'
+    list_display = [
+        'code', 
+        'valid_from', 
+        'valid_to', 
+        'discount', 
+        'active'
     ]
-    list_filter = ['active', 
-    'valid_from', 
-    'valid_to'
+    list_filter = [
+        'active', 
+        'valid_from', 
+        'valid_to'
     ]
     search_fields = ['code']
 
 @admin.register(Tax)
 class TaxModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
-    'tax_type', 
-    'value'
+    list_display = [
+        'id', 
+        'tax_type', 
+        'value'
     ]
 
 @admin.register(Itemgroup)
 class ItemgroupModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
-    'item_group_code', 
-    'item_group_name', 
-    'item_group_description', 
-    'item_group_image'
+    list_display = [
+        'id', 
+        'item_group_code', 
+        'item_group_name', 
+        'item_group_description', 
+        'item_group_image'
     ]
 
 @admin.register(Category)
 class CategoryModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
-    'item_group_name', 
-    'category_code', 
-    'category'
+    list_display = [
+        'id', 
+        'item_group_name', 
+        'category_code', 
+        'category'
     ]
 
 @admin.register(Purchase)
 class PurchaseModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
-    'trans_date', 
-    'pur_bill_no', 
-    'supplier_name', 
-    'total_qty', 
-    'gross_amt', 
-    'disc_amt', 
-    'gst_amt', 
-    'tcs', 
-    'o_charge', 
-    'o_disc', 
-    'grand_total'
+    list_display = [
+        'id', 
+        'trans_date', 
+        'pur_bill_no', 
+        'supplier_name', 
+        'total_qty', 
+        'gross_amt', 
+        'disc_amt', 
+        'gst_amt', 
+        'tcs', 
+        'o_charge', 
+        'o_disc', 
+        'grand_total'
     ]
 
 @admin.register(PurchaseProduct)
@@ -221,9 +234,30 @@ class PurchaseProductModelAdmin(admin.ModelAdmin):
             'marg'
         ]
 
+@admin.register(SalesRegister)
+class SalesRegisterModelAdmin(admin.ModelAdmin):
+    list_display = [
+        'id', 
+        'inv_no', 
+        'total_qty', 
+        'total_amt', 
+        'discount', 
+        'gst_amt', 
+        'grand_total', 
+        'by_cash', 
+        'by_card', 
+        'by_credit', 
+        'sdx_fin', 
+        'by_upi', 
+        'redeem', 
+        'ct_amt', 
+        'refund'
+    ]
+
 @admin.register(PaymentMode)
 class PaymentModeModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 
+    list_display = [
+        'id', 
         'by_cash', 
         'by_card', 
         'by_credit', 

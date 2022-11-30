@@ -133,13 +133,13 @@ def all_success_bills(request):
     return render(request, 'admin_app/success_bill_list.html', {'success_bill':success_bill})
 
 
-# All Lists (staff)
+# All Lists (staff)(manager)
 # Staff view
 def staff_dashboard(request):
     return render(request, 'staff/staff_home.html')
 
 # Product View list(Staff)
-def all_product(request):
+def product_all(request):
     products_list = Product.objects.all()
     return render(request, 'staff/products.html', {'products_list':products_list})
 
@@ -163,6 +163,18 @@ def all_user(request):
     user_list = User.objects.all()
     # print(user_list)
     return render(request, 'staff/users.html', {'user_list':user_list})
+
+# Category list(staff)
+def category_all(request):
+    category_list = Category.objects.all()
+    return render(request, 'staff/category.html', {'category_list':category_list})
+
+# Color list(staff)
+def color_all(request):
+    color_list = Color.objects.all()
+    return render(request, 'staff/color.html', {'color_list':color_list})
+
+ 
 
 
 # Accoutant List
@@ -220,20 +232,6 @@ def productinsert(request):
         if 'submitted' in request.GET:    
             submitted = True
     return render(request, 'admin_app/productinsertform.html', {'form':form, 'submitted':submitted})
-
-# Product insert(Staff)
-def product_insert(request):
-    submitted = False
-    if request.method == "POST":
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect(productinsert)
-    else:
-        form = ProductForm()
-        if 'submitted' in request.GET:    
-            submitted = True
-    return render(request, 'staff/productinsertform.html', {'form':form, 'submitted':submitted})
 
 # Customer insert(Admin)
 def customerinsert(request):
@@ -403,6 +401,38 @@ def size_insert(request):
             submitted = True
     return render(request, 'admin_app/size_insert.html', {'form':form, 'submitted':submitted})
 
+
+# Manage Insert
+# Product insert(manager)
+def prod_insert(request):
+    submitted = False
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(prod_insert)
+    else:
+        form = ProductForm()
+        if 'submitted' in request.GET:    
+            submitted = True
+    return render(request, 'staff/productinsertform.html', {'form':form, 'submitted':submitted})
+
+# Category insert(manager)
+def insert_category(request):
+    submitted = False
+    if request.method == "POST":
+        forms = CategoryForm(request.POST)
+        if forms.is_valid():
+            forms.save()
+            return redirect(insert_category)
+    else:
+        forms = CategoryForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'staff/category_insert.html', {'forms':forms, 'submitted':submitted})
+
+
+
 # Payment mode Insert
 def payment_mode_insert(request):
     submitted = False
@@ -472,6 +502,9 @@ def insert_tax(request):
         if 'submitted' in request.GET:
             submitted = True
     return render(request, 'accountant_app/tax_insert.html', {'form':form, 'submitted':submitted})
+
+
+
 
 
 # User Views

@@ -99,7 +99,7 @@ urlpatterns = [
 
     
     path('success_bill', views.all_success_bills, name='all-success-bill'), 
-    # path('holded_bill', views.all_hold_bills, name="all-hold-boll"), 
+    path('holded_bill', views.all_hold_bills, name="all-hold-boll"), 
     path('bills', views.bill_page, name="list-bills"),
     path('add-product', views.productinsert, name="P-insert"),
     path('add-customer', views.customerinsert, name="Cu-insert"),
@@ -119,12 +119,19 @@ urlpatterns = [
     # for staff
     path('staff-home/', views.staff_home, name= "staff-home"),
     path('staff_dashboard', views.staff_dashboard, name="staff_dashboard"),
-    path('product', views.all_product, name="lists-products"),
-    path('add-products', views.product_insert, name="Product-insert"),
-    path('cartss', views.all_cart, name="lists-carts"),
-    path('customer', views.all_customeres, name="list-customeress"),
-    path('order-place', views.all_orderplace, name="list-order_place"),
-    path('user', views.all_user, name="list-user"),
+    
+    path('prod', views.product_all, name='all-prod-list'),
+    
+    path('categories', views.category_all, name="category_all"),
+
+    path('color_s', views.color_all, name="all-color-list"),  
+
+
+# Staff Insert
+    path('prod_insert', views.prod_insert, name='insert-prod'), 
+    path('category_insert', views.insert_category, name="insert-category"), 
+
+
     path('bills', views.bill_page, name="list-bills"),
 
 

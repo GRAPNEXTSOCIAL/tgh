@@ -18,7 +18,8 @@
                 {{ form.as_p }}
 
                 <input type="submit" value="Submit" class="btn btn-success">
-              {% endif %}
+                <a href="{% url 'list-coupons' %}" class="btn btn-info">View Coupon List</a>
+                {% endif %}
               </form> 
         </div>
       </div>
