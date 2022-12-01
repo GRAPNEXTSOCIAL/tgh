@@ -32,8 +32,8 @@ SECRET_KEY = '8o353)z(_*^04+jhey!m*q3_no@vhn*7v8(6xz4rl6=kunu=it'
 # DEBUG = False
 DEBUG = True
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ["thegroceryhouse.herokuapp.com", "localhost"]
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["thegroceryhouse.herokuapp.com", "localhost"]
 
 
 # Application definition
