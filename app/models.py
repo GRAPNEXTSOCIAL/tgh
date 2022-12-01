@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime, date
+from colorfield.fields import ColorField
+from django.utils.safestring import mark_safe
+
 
 # Create your models here.
 
@@ -55,7 +58,8 @@ STATUS_CHOICES = (
 )
 
 TAX_TYPE_CHOICES = (
-    ('SGST/CGST', 'SGST/CGST'), 
+    ('CGST', 'CGST'), 
+    ('SGST', 'SGST'), 
     ('IGST', 'IGST'), 
     ('UNREGD', 'UNREGD'), 
     ('COMPOSITE', 'COMPOSITE')
@@ -63,10 +67,14 @@ TAX_TYPE_CHOICES = (
 
 class Color(models.Model):
     color_code = models.CharField(max_length=5)
-    item_color = models.CharField(max_length=50)
+    item_color = ColorField()
 
     def __str__(self) -> str:
         return self.item_color
+
+    def color_tag(self):
+        if self.item_color is not None:
+            return mark_safe('<div style="height: 30px; width: 40px; background-color: %s"></div>'%(self.item_color))
 
 class Size(models.Model):
     size_code = models.CharField(max_length=5)
@@ -130,15 +138,19 @@ class Product(models.Model):
     brand = models.CharField(max_length=100)
     item_type = models.TextField()
     title = models.CharField(max_length=100)
-    barcode = models.CharField(max_length=100)    
+    barcode = models.CharField(max_length=100) 
+    hsn_no = models.CharField(max_length=100)   
     item_size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
-    item_color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)    
+    item_color = ColorField()    
     actual_mrp = models.FloatField()
     purchase_price = models.FloatField()
     selling_price = models.FloatField()
     discounted_price = models.FloatField()
-    purchase_tax_type = models.CharField(max_length=30)
+    tax_on = models.CharField(max_length=50, default='BASIC')
+    gst = models.FloatField()
+    purchase_tax_type = models.CharField(choices=TAX_TYPE_CHOICES, max_length=50, null=True)
     purchase_tax = models.FloatField()
+    cess = models.FloatField(null=True, default=0.0)
     selling_tax = models.FloatField()  
     product_purchase_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
     manufacture_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
@@ -146,6 +158,10 @@ class Product(models.Model):
     alertment_date = models.DateField(auto_now_add=False, auto_now=False, null=True)
     description = models.TextField()
     product_image = models.ImageField(upload_to='productimg')
+
+    def color_tag(self):
+        if self.item_color is not None:
+            return mark_safe('<div style="height: 30px; width: 40px; background-color: %s"></div>'%(self.item_color))
 
 
 

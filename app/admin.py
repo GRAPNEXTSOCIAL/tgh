@@ -52,8 +52,9 @@ class UserModelAdmin(UserAdmin):
 class ColorModelAdmin(admin.ModelAdmin):
     list_display = [
         'id', 
-        'color_code', 
-        'item_color'
+        'color_code',
+        'item_color',  
+        'color_tag'
     ]
 
 @admin.register(Size)
@@ -96,27 +97,32 @@ class ProductModelAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'supplier',
-        'group', 
-        'item_type', 
-        'manufacturer', 
-        'title', 
-        'barcode', 
-        'item_size', 
-        'item_color',
-        'purchase_tax_type',  
-        'purchase_price', 
-        'purchase_tax', 
-        'selling_price', 
-        'selling_tax', 
-        'discounted_price', 
-        'description', 
+        'manufacturer',
+        'group',
+        'category',
         'brand', 
-        'category', 
-        'actual_mrp', 
-        'product_purchase_date',
-        'manufacture_date',  
-        'expiry_date',
-        'alertment_date',  
+        'item_type',  
+        'title', 
+        'barcode',
+        'hsn_no',  
+        'item_size',
+        'item_color',  
+        'color_tag',
+        'actual_mrp',
+        'purchase_price', 
+        'selling_price',
+        'discounted_price', 
+        'tax_on', 
+        'gst',  
+        'purchase_tax_type',   
+        'purchase_tax', 
+        'cess',   
+        'selling_tax', 
+        'product_purchase_date', 
+        'manufacture_date',
+        'expiry_date',  
+        'alertment_date', 
+        'description',  
         'product_image'
     ]
 
