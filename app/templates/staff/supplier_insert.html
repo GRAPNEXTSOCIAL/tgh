@@ -12,7 +12,7 @@
                 {% if submitted %}
                     Supplier Inserted Successfully!!!
                 {% else %}
-                    <form action="" method="post">
+                    <form action="" method="post" class="staff_supplier_form">
                         {% csrf_token %}
 
                         {{ form.as_p }}

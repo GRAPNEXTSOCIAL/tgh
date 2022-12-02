@@ -12,7 +12,7 @@
         {% if submitted %}
           Customer was Inserted Successfully!!!
         {% else %}
-          <form method="post">
+          <form method="post" class="customer_form">
             {% csrf_token %}
 
             {{ form.as_p }}

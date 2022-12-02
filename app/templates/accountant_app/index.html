@@ -224,6 +224,27 @@
   <!-- Template Main JS File -->
   <script src="{% static 'assetss/js/main.js' %}"></script>
 
+
+  <script>
+    var allFields = document.querySelectorAll(".account_coupon_form",
+        ".account_purchase_form", 
+        ".account_purchase_product_form", 
+        ".account_tax_form"
+    );
+    for (var i = 0; i < allFields.length; i++) {
+        allFields[i].addEventListener("keyup", function(event) {
+            if (event.keycode === 13) {
+                event.preventDefault();
+                if (this.parentElement.nextElementSibiling.querySelector('input')) {
+                    console.log(this.parentElement)
+                    this.parentElement.nextElementSibiling.querySelector('input').focus();
+                }
+            }
+        });
+    }
+</script>
+
+
 </body>
 
 </html>

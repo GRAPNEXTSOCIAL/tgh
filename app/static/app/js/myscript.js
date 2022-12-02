@@ -86,3 +86,5 @@ $('.remove-cart').click(function() {
         }
     })
 })
+
+

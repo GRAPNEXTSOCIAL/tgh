@@ -12,7 +12,7 @@
             {% if submitted %}
               Cart was Inserted Successfully!!!
             {% else %}
-              <form action="" method="post">
+              <form action="" method="post" class="staff_cart_form">
                 {% csrf_token %}
 
                 {{ form.as_p }}

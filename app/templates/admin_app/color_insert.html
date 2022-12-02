@@ -12,7 +12,7 @@
                         {% if submitted %}
                             Color was Inserted Successfully!!!
                         {% else %}
-                            <form action="" method="post">
+                            <form action="" method="post" class="color_form">
                                 {% csrf_token %}
 
                                 {{ form.as_p }}

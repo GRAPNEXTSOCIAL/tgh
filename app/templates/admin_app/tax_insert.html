@@ -12,7 +12,7 @@
                 {% if submitted %}
                     Tax Inserted Successfully!!!
                 {% else %}
-                    <form action="" method="post">
+                    <form action="" method="post" class="tax_form">
                         {% csrf_token %}
 
                         {{form.as_p}}

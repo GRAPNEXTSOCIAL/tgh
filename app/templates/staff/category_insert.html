@@ -12,7 +12,7 @@
                 {% if submitted %}
                 Category Inserted Successfully!!!
                 {% else %}
-                    <form action="" method="post">
+                    <form action="" method="post" class="staff_category_form">
                         {% csrf_token %}
 
                         {{forms.as_p}}

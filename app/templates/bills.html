@@ -418,7 +418,13 @@ crossorigin="anonymous"
 
           $(tr).append($("<td />").text(fields.barcode));
           $(tr).append($("<td />").text(fields.product_name));
-          $(tr).append($("<td />").text(fields.quantity));
+          $(tr).append($("<td />").html(`
+            <div>
+              <button class="item-quantity" data-value="-1">-</button>
+              <input type="number" value="${fields.quantity}" class="quantity-field">
+              <button class="item-quantity" data-value="1">+</button>
+            </div>
+          `));
           $(tr).append($("<td />").text(fields.price));
           $(tr).append($("<td />").text(fields.taxamount));
 
@@ -485,6 +491,26 @@ crossorigin="anonymous"
 
           addProductToBill(fields);
         }
+
+        function updateQuantity(tr, value) {
+          let data = $(tr).data("data");
+          data.quantity = value;
+
+          if(data.quantity == 0) {
+            $(tr).remove();
+          } else {
+            $(tr).find('td').eq(2).html(`
+              <div>
+                <button class="item-quantity" data-value="-1">-</button>
+                <input type="number" value="${data.quantity}" class="quantity-field">
+                <button class="item-quantity" data-value="1">+</button>
+              </div>
+            `);
+          }
+
+          calculateSubTotal();
+          calculateTax();
+        }
         
         $("#barcode").on(
           "input",
@@ -514,6 +540,20 @@ crossorigin="anonymous"
             }
           })
         );
+
+        $('#bill-items').on('click', '.item-quantity', function() {
+          let tr = $(this).parents('tr')
+          let delta = Number($(this).data('value'))
+          let data = $(tr).data("data");
+          let value = Number(data.quantity) + delta
+          updateQuantity(tr, value)
+        })
+
+        $('#bill-items').on('change', '.quantity-field', function() {
+          let value = Number($(this).val())
+          let tr = $(this).parents('tr')
+          updateQuantity(tr, value)
+        })
 
         $('#apply-coupon').click(function() {
           const code = $('[name="coupon"]').val()

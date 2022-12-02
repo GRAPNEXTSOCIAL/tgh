@@ -12,7 +12,7 @@
             {% if submitted %}
               Coupon Inserted Successfully!!!
             {% else %}
-              <form action="" method="post">
+              <form action="" method="post" class="account_coupon_form">
                 {% csrf_token %}
 
                 {{ form.as_p }}

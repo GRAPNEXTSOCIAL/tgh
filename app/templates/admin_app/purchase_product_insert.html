@@ -12,7 +12,7 @@
                 {% if submitted %}
                 Group Inserted Successfully!!!
                 {% else %}
-                    <form action="" method="post">
+                    <form action="" method="post" class="purchase_product_form">
                         {% csrf_token %}
 
                         {{forms.as_p}}
