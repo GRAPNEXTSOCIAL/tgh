@@ -125,8 +125,10 @@ urlpatterns = [
     path('size', views.size_all, name="size-all"),  
     path('groups', views.group_all, name="all-group-list"),
     path('tax', views.tax_all, name="all-tax-list"), 
-    path('coupon_s', views.coupon_all, name="all-coupon-list"),  
-
+    path('coupon_s', views.coupon_all, name="all-coupon-list"),
+    path('customer', views.customer_all, name="all-customer-list"), 
+    path('purchases', views.purchase_all, name="all-purchase-list"),
+    path('suppliers', views.supplier_all, name="all-suppliar-list"), 
 
 # Staff Insert
     path('prod_insert', views.prod_insert, name='insert-prod'), 
@@ -135,7 +137,10 @@ urlpatterns = [
     path('size_insert', views.insert_size, name="insert-size"), 
     path('group_insert', views.insert_group, name="insert-group"),
     path('tax_insert', views.insert_taxes, name="taxes-insert"),
-    path('coupon_insert', views.add_coupon_insert, name="coupon-insert"), 
+    path('coupon_insert', views.add_coupon_insert, name="coupon-insert"),
+    path('customer_insert', views.insert_customer, name="insert-customer"), 
+    path('insert_purchase', views.add_purchase_insert, name="add-purchase-insert"),  
+    path('supplier_insert', views.insert_supplier, name="insert-supplier"),  
 
 
     path('bills', views.bill_page, name="list-bills"),

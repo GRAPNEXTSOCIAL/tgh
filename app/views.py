@@ -161,7 +161,6 @@ def all_orderplace(request):
 # Users list(Staff)
 def all_user(request):
     user_list = User.objects.all()
-    # print(user_list)
     return render(request, 'staff/users.html', {'user_list':user_list})
 
 # Category list(staff)
@@ -193,6 +192,21 @@ def tax_all(request):
 def coupon_all(request):
     coupon_list = Coupon.objects.all()
     return render(request, 'staff/coupon.html', {'coupon_list':coupon_list})
+
+# Customer View list(staff)
+def customer_all(request):
+    customer_list = Customer.objects.all()
+    return render(request, 'staff/customers.html', {'customer_list':customer_list})
+
+# Purchase List(staff)
+def purchase_all(request):
+    purchase_list = Purchase.objects.all()
+    return render(request, 'staff/purchase.html', {'purchase_list':purchase_list})
+
+# Supplier list(manager)
+def supplier_all(request):
+    supplier_list = Supplier.objects.all()
+    return render(request, 'staff/supplier.html', {'supplier_list':supplier_list})
 
 
 # Accoutant List
@@ -405,7 +419,7 @@ def supplier_insert(request):
             submitted = True
     return render(request, 'admin_app/supplier_insert.html', {'form':form, 'submitted':submitted})
 
-    # Size Insert(Admin)
+# Size Insert(Admin)
 def size_insert(request):
     submitted = False
     if request.method == "POST":
@@ -477,7 +491,7 @@ def insert_size(request):
             submitted = True
     return render(request, 'staff/size_insert.html', {'form':form, 'submitted':submitted})
 
-    # Group insert(manager)
+# Group insert(manager)
 def insert_group(request):
     submitted = False
     if request.method == "POST":
@@ -518,6 +532,50 @@ def add_coupon_insert(request):
         if 'submitted' in request.GET:
             submitted = True 
     return render(request, 'staff/coupon_insert.html', {'form':form, 'submitted':submitted})
+
+# Customer insert(manager)
+def insert_customer(request):
+    if not request.user.is_superuser:
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+    submitted = False
+    if request.method  == "POST":
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(insert_customer)
+    else:
+        form = CustomerForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'staff/customerinsertform.html', {'form':form, 'submitted':submitted})
+
+# Purchase insert(Admin)
+def add_purchase_insert(request):
+    submitted = False
+    if request.method == "POST":
+        forms = PurchaseForm(request.POST)
+        if forms.is_valid():
+            forms.save()
+            return redirect(add_purchase_insert)
+    else:
+        forms = PurchaseForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'staff/purchase_insert.html', {'forms':forms, 'submitted':submitted})
+
+# Supplier insert(manager)
+def insert_supplier(request):
+    submitted = False
+    if request.method == "POST":
+        form = SupplierForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(insert_supplier)
+    else:
+        form = SupplierForm()
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, 'staff/supplier_insert.html', {'form':form, 'submitted':submitted})
 
 
 
