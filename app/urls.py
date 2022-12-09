@@ -29,7 +29,7 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout'),
     path('paymentdone/', views.payment_done, name='paymentdone'),
 
-    path('show_category', views.show_category, name='show-category'), 
+    path('show_category', views.show_category, name='show-category'),  
 
     path('account/login/', auth_views.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
@@ -91,7 +91,9 @@ urlpatterns = [
 
     path('purchase', views.all_purchase, name="list-purchase"), 
     path('purchasedelete/<int:id>/', views.purchase_delete, name='purchase-delete'), 
-    path('updatepurchase/<int:id>/', views.update_purchase, name="update-purchase"), 
+    path('updatepurchase/<int:id>/', views.update_purchase, name="update-purchase"),
+
+    path('purchase_product', views.all_purchase_product, name='list-purchase-product'),  
 
     path('supplier', views.all_supplier, name="list-supplier"),
     path('supplierdelete/<int:id>/', views.supplier_delete, name="supplier-delete"), 
@@ -100,7 +102,8 @@ urlpatterns = [
     
     path('success_bill', views.all_success_bills, name='all-success-bill'), 
     path('holded_bill', views.all_hold_bills, name="all-hold-boll"), 
-    path('bills', views.bill_page, name="list-bills"),
+    path('bills', views.bill_page, name="list-bills"), 
+    path('purchase_bill', views.purchase_bill, name='bill-purchase'), 
     path('add-product', views.productinsert, name="P-insert"),
     path('add-customer', views.customerinsert, name="Cu-insert"),
     path('add-cart', views.cartinsert, name="Ca-insert"),

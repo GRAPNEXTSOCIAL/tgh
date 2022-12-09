@@ -9,8 +9,8 @@ from django.shortcuts import redirect, render,HttpResponsePermanentRedirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.views import View
-from .models import CASHIER, MANAGER, ACCOUNTANT,  STAFF_CATEGORY_CHOICES, Color, Coupon, Customer, Product, Cart, OrderPlaced, Coupon, Size, Supplier, Tax, Itemgroup, Category, Purchase, PaymentMode
-from .forms import CartForm, ColorForm, SizeForm, SupplierForm, CouponForm, CustomerRegistrationForm, CustomerProfileForm, OrderPlacedForm, ProductForm, CustomerForm, TaxForm, ItemgroupForm, CategoryForm, PurchaseForm, PaymentModeForm, PurchaseProductForm  
+from .models import *
+from .forms import *
 from django.db.models import Q
 from django.http import JsonResponse
 # For Function based login view
@@ -22,13 +22,14 @@ from .models import Product, Cart, Customer, OrderPlaced, User
 from django.template import RequestContext
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
+from django.core import serializers
 
 
 
 def home(request):
-    view = ProductView()
-    return view.get(request)
-    # return redirect('login')
+    # view = ProductView()
+    # return view.get(request)
+    return redirect('login')
 # Admin Views
 
 class CustomLoginView(auth_views.LoginView):
@@ -116,6 +117,12 @@ def all_category(request):
 def all_purchase(request):
     purchase_list = Purchase.objects.all()
     return render(request, 'admin_app/purchase.html', {'purchase_list':purchase_list})
+
+# Purchase product list(admin)
+def all_purchase_product(request):
+    purchase_product_list = PurchaseProduct.objects.all()
+    return render(request, 'admin_app/purchase_products.html', {'purchase_product_list':purchase_product_list})
+    
 
 # Supplier list(admin)
 def all_supplier(request):
@@ -880,9 +887,25 @@ class ProfileView(View):
             messages.success(request, 'Congratulations..!! ProfileUpdated Successfully.')
         return render(request, 'app/profile.html', {'form':form, 'active':'btn-primary'})
 
+def insertdata(request):
+    if request.method == 'POST':
+        if request.POST.get('trans_date') and request.POST.get('supplier') and request.POST.get('bill_type') and request.POST.get('bill_no') and request.POST.get('ledger_acc') and request.POST.get('bill_date') and request.POST.get('gstin'):
+            toBeSaved = Purchase()
+            toBeSaved.trans_date = request.POST.get('trans_date')
+            toBeSaved.supplier_name = request.POST.get('supplier')
+            toBeSaved.pur_bill_no = request.POST.get('bill_no')
+            toBeSaved.bill_type = request.POST.get('bill_type')
+            toBeSaved.save()
+            messages.success(request, "Purchase Product Data Inserted Successfully..!")
+            return render(request, 'purchase_bills.html')
+
 # Bill-page
 def bill_page(request):
     return render(request, 'bills.html')
+
+def purchase_bill(request):
+    supplier_all = Supplier.objects.all()
+    return render(request, 'purchase_bills.html', {'supplier_all':supplier_all})
 
 def exit_bill(request):
     return render(request, 'app/home.html')

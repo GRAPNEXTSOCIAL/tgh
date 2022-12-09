@@ -49,6 +49,45 @@
 
   <!-- Template Main CSS File -->
   <link href="{% static 'assetss/css/style.css' %}" rel="stylesheet">
+  <style>
+    svg{
+    font-size: 120px;
+    padding-top: -50px;
+ }
+ .copy{
+    fill: none;
+    stroke: #fff;
+    stroke-width: 5px;
+    stroke-dasharray: 15% 40%;
+    stroke-dashoffset: 0%;
+    animation: textanimation 6s linear infinite;
+ }
+ @keyframes textanimation{
+    100%{
+        stroke-dashoffset: -35%;
+    }
+ }
+.copy1{
+    stroke: green;
+    animation-delay: -1s;
+ }
+.copy2{
+    stroke: green;
+    animation-delay: -2s;
+ }
+ .copy3{
+    stroke: green;
+    animation-delay: -3s;
+ }
+  .copy4{
+    stroke: green;
+    animation-delay: -4s;
+ }
+ .copy5{
+    stroke: green;
+    animation-delay: -5s;
+ }
+  </style>
   </head>
 
   <body>
@@ -73,7 +112,7 @@ crossorigin="anonymous"
 
       <div class="d-flex align-items-center justify-content-between">
         <a href="{% url 'home' %}" class="logo d-flex align-items-center">
-          <!-- <img src="{% static 'assetss/img/logo.png' %}" alt=""> -->
+          <img src="{% static 'assetss/img/logo.png' %}" alt="">
           <span class="d-none d-lg-block">THE GROCERY HOUSE</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -112,40 +151,54 @@ crossorigin="anonymous"
   
   </header><!-- End Header -->
     <br><br><br>
+
+
     <div class="top" style="margin-left:20px;">
       <div class="row">
         <div class="col-md-3">
-              <label for="custphone"><span style="font-weight: bold;">Mobile:</label>
-              <input type="text" id="custphone" name="custphone">
+              <label for="trans_date"><span style="font-weight: bold;">Trans Date:</label>
+              <input type="text" placeholder="YYYY-MM-DD" name="trans_date" style="width:50%;">
               <br>
-              <label for="custname"><span style="font-weight: bold;">Name:</label>
-              <input type="text" id="custname" name="custname" style="margin-left:5px;">
+              <label for=""><span style="font-weight: bold;">Supplier:</label>
+              <select name="" id="" style="width: 50%;">
+                <option value="">Select Supplier</option>
+                  {% for s in supplier_all %}
+                    <option value="">{{ s.supplier }}</option>
+                  {% endfor %}
+              </select>
               <br>
-              <label for="custemail"><span style="font-weight: bold;">Email:</label>
-              <input type="text" id="custemail" name="custemail" style="margin-left:7px;">
+              <label for="bill_type"><span style="font-weight: bold;">Bill Type:</label>
+              <select name="" id="" style="width: 50%;">
+                <option value="">Select Bill Tax Type</option>
+                <option value="">CGST</option>
+                <option value="">SGST</option>
+                <option value="">IGST</option>
+                <option value="">UNREGD</option>
+                <option value="">COMPOSITE</option>
+              </select>
         </div>
         <div class="col-md-5">
           <div class="row">
             <div class="col-md-6">
-              <label for="pn"><span style="font-weight: bold;">Product:</label>
-                  <input type="text" id="product_name" name="product_name" style="width: 50%; margin-left:3%;">
+              <label for="bill_no"><span style="font-weight: bold;">Bill No:</label>
+                  <input type="text" name="bill_no" style="width:50%;">
               <br>
-               <label for="quantity"><span style="font-weight: bold;">Quantity:</label>
-               <input type="text" id="quantity" name="quantity" style="width: 50%;">
+               <label for="ledger_acc"><span style="font-weight: bold;">Ledger a/c:</label>
+               <input type="text" name="ledger_acc" style="width: 50%;">
             </div>
             <div class="col-md-6">
-              <label for="price"><span style="font-weight: bold;">Price:</label>
-              <input type="text" placeholder="" name="price" id="price" style="width: 50%; margin-left: 20%;">
+              <label for="bill_date"><span style="font-weight: bold;">Bill Date:</label>
+              <input type="datetime" placeholder="" name="bill_date" style="width: 50%;">
               <br>
-              <label for="taxamount"><span style="font-weight: bold;">Tax Amount:</label>
-              <input type="text" id="totaltax" name="grandtotal" style="width: 50%;">
+              <label for="gstin"><span style="font-weight: bold;">GSTIN:</label>
+              <input type="text" name="gstin" style="width: 50%;">
             </div>
           </div>
         </div>
         
         <div class="col-md-4">
           <label for="billhead" style="font-size:15px;color: green;">Bill No:</label>
-          <input type="text" placeholder="" name="" id="bill-no" style="margin-left: 50px;">
+          <input type="text" placeholder="" name="" id="bill-no" style="width:50%;">
           <button type="submit"><i class="fa fa-search" id="bill-search"></i></button>
           <br>
           <label for="barcode" style="font-size:30px; color: red; font-weight: bold;">BarCode No:</label>
@@ -154,8 +207,10 @@ crossorigin="anonymous"
         
       </div>
     </div>
+
+
+
   
-   
 <div class="row">
   <div class="col-md-12">
     <div class="tab">
@@ -164,10 +219,9 @@ crossorigin="anonymous"
         
       </div>
       <div class="row" id="chi">
-        <div class="col-md-8">
-             <div class="card" style="border: 2px solid black; height: 95%; max-height:500px; overflow-y:scroll">
+        <div class="col-md-12">
+             <div class="card" style="border: 2px solid black; height: 65%; max-height:300px; overflow-y:scroll">
             <div class="plcbill" id="print_area">
-   
               <div class="card" style="display: flex;">
                 <table
                   class="table table-borderless"
@@ -176,10 +230,26 @@ crossorigin="anonymous"
                 >
                   <thead>
                     <tr>
-                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">BarCode No</th>
-                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Product</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Sl.No</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">BarCode</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Product Description</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Article No</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Hsn No</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Size</th>
                       <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Qty</th>
-                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Price</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Free</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">P.Price</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">MRP</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Tax%</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Disc1%</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">D Amt1</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Disc2%</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">D Amt2</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">L Cost</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Tot Cost</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">S.Price</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Total</th>
+                      <th style="background-color:rgb(13, 13, 72);color: #fff;font-weight: bold;">Marg%</th>                     
                     </tr>
                   </thead>
                   <tbody></tbody>
@@ -188,118 +258,112 @@ crossorigin="anonymous"
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="row">
-   
-            <div class="col-md-12">
-              <div class="card" style="border: 2px solid black; height: 95%;">
+
+
+        <div class="row" style="margin-top:-40px;">
+          <div class="col-md-8"></div>
+          <div class="col-md-4">
+            <div class="total">
                 <div class="row">
-                  <div class="total" style="margin-left:2%;">
-                    
-                    <br>
-                    <label for="totalamount">Total Amount</label>
-                    <input type="text" placeholder="" name="grandtotal" style="width: 40%;"/>
-                    <br />
-                    <label for="">Coupon Code:</label>
-                    <input type="text" placeholder="" name="coupon" style="width:35%;">
-                    <button class="btn btn-dark" id="apply-coupon">Apply Coupon</button>
-                    <br>
-                    <label for="">DISCOUNT</label>
-                      <input type="text"  name="" style="margin-left: 30px;"/>
-                      <br />
-                     
-                      <label for="">CGST</label>
-                      <input type="text"  name="" style="width:45px;margin-left: 70px;" />
-                      <input type="text"  name="" />
-                      <br />
-                      <label for="">SGST</label>
-                      <input type="text"  name="" style="width:45px;margin-left: 70px;"/>
-                      <input type="text"  name="" />
-                      <br />
-                      <label for="">CALCULATED AMOUNT</label>
-                      <input type="text"  name=""/>
-                      <br />
-                      <label for="">PAYBLE AMOUNT</label>
-                      <input type="text"  name="" style="margin-left: 43px;" />
-                      <br />
-                      <label for="">ROUNDED</label>
-                      <input type="text"  name="" style="margin-left: 95px;" />
-                      <br />
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4">
+                    <label for="" style="font-size:12px;">Cess Amt</label>
+                     <input type="text" placeholder="" name="" style="width:40%;"/>
+                         <br />
+                         <label for="" style="font-size:12px;">TCS Amt</label>
+                     <input type="text" placeholder="" name="" style="width:40%;"/>
+                         <br />
+                         <label for="" style="font-size:12px;">O Charges</label>
+                     <input type="text" placeholder="" name="" style="width:40%;"/>
+                         <br />
+                         <label for="" style="font-size:12px;">Other Disc</label>
+                     <input type="text" placeholder="" name="" style="width:40%;"/>
+                         <br />
+                         <label for="" style="font-size:12px;">Round Off</label>
+                     <input type="text" placeholder="" name="" style="width:40%;"/>
+                         <br />
+                         
                   </div>
+                  <div class="col-md-4">
+                    <label for="" style="font-size:12px;">Total Amt</label>
+                    <input type="text" placeholder="" name="" style="width:40%;"/>
+                        <br />
+                     <label for="" style="font-size:12px;">Addl Disc</label>
+                     <input type="text" placeholder="" name="" style="width:40%;"/>
+                        <br /> 
+                        <label for="" style="font-size:12px;">SGST Amt</label>
+                      <input type="text" placeholder="" name="" style="width:40%;"/>
+                        <br />
+                        <label for="" style="font-size:12px;">CGST Amt</label>
+                    <input type="text" placeholder="" name="" style="width:40%;"/>
+                        <br />  
+                        <label for="" style="font-size:12px;">IGST Amt</label>
+                    <input type="text" placeholder="" name="" style="width:40%;"/>
+                        
+                 </div>
+                 
                 </div>
-              </div>
+                <label for="totalamount" style="color: red; font-size:15px;margin-left: 40%;"><u>Grand Total</u></label>
+                     <input type="text" placeholder="" name="grandtotal" style="width:30%;"/> 
+              
             </div>
+
           </div>
         </div>
-        
+        <div class="row">
         <div class="btn1" style="margin-left:7%;">
           <button
             style="
               color: aliceblue;
-              width: 180px;
-              height: 80px;
+              width: 150px;
+              height: 50px;
               font-weight: 900;
             "
-            class="btn btn-secondary"
-            id="add-btn" 
+            class="btn btn-secondary" 
           >
           <i class="fa-regular fa-plus"></i>
-          Add
+          Submit
           </button>
           <a href="#"
             ><button
               style="
                 color: aliceblue;
-                width: 180px;
-                height: 80px;
+                width: 150px;
+                height: 50px;
                 font-weight: 900;
               "
               class="btn btn-success"
               id="generate-bill"
             >
             <i class="fa-duotone fa-money-bill-1-wave"></i>
-              Generate Bill
-            </button></a
-          >
-          <a href="{% url 'payment-mode' %}"
-            ><button
-              style="
-                color: aliceblue;
-                width: 180px;
-                height: 80px;
-                font-weight: 900;
-              "
-              class="btn btn-success"
-            >
-            <i class="fa-duotone fa-money-bill-1-wave"></i>
-              Payment Mode
+              Update
             </button></a
           >
           <button
             id="hold-save"
-            style="width: 180px; height: 80px; font-weight: 900"
+            style="width: 150px; height: 50px; font-weight: 900"
             class="btn btn-primary"
           >
           <i class="fa-solid fa-floppy-disk"></i>
-            Hold & Save Bill
+            Delete
           </button>
           <button
             style="
               color: aliceblue;
-              width: 180px;
-              height: 80px;
+              width: 150px;
+              height: 50px;
               font-weight: 900;
             "
             class="btn btn-info"
           >
           <i class="fa-sharp fa-solid fa-arrow-rotate-left"></i>
-            Return
+            Print
           </button>
           <button
             style="
               color: aliceblue;
-              width: 180px;
-              height: 80px;
+              width: 150px;
+              height: 50px;
               font-weight: 900;
             "
             id="clr-btn"
@@ -309,11 +373,12 @@ crossorigin="anonymous"
             Clear
           </button>
           <a href="{% url 'exit_bill' %}"
-            ><button
+            >
+            <button
               style="
                 color: aliceblue;
-                width: 180px;
-                height: 80px;
+                width: 150px;
+                height: 50px;
                 font-weight: 900;
               "
               class="btn btn-danger"
@@ -324,14 +389,15 @@ crossorigin="anonymous"
           >
         </div>
         
+        
+        </div>
+        
+        
       </div>
     </div>
   </div>
 </div>
-
-
-
-
+    
     <script>
       const debounce = function (cb, timeout = 1000) {
         let refID;
@@ -345,17 +411,43 @@ crossorigin="anonymous"
 
       $(document).ready(function () {
         const key_name_pair = {
-          title: "product_name",
-          discounted_price: "price",
-          category: "category",
-          brand: "brand",
-          selling_tax: "taxamount",
+          pur_bill_no: "",
+          barcode: "",
+          product_description: "",
+          article_no: "",
+          hsn_no: "",
+          size: "", 
+          qty: "", 
+          free: "", 
+          p_price: "", 
+          mrp: "", 
+          tax: "", 
+          cess: "", 
+          disc1: "", 
+          d_Amt1: "", 
+          disc2: "", 
+          d_Amt2: "", 
+          l_Cost: "", 
+          tot_Cost: "", 
+          s_Price: "", 
+          total: "", 
+          marg: "",
         };
 
         const customer_key_name_pair = {
-          mobile_no: "custphone",
-          name: "custname",
-          email: "custemail",
+          trans_date: "", 
+          gstin: "", 
+          pur_bill_no: "", 
+          bill_type: "", 
+          supplier_name: "", 
+          total_qty: "", 
+          gross_amt: "", 
+          disc_amt: "", 
+          gst_amt: "", 
+          tcs: "", 
+          o_charge: "",
+          o_disc: "", 
+          grand_total: "", 
         };
 
         function addProductToBill(fields) {
@@ -365,17 +457,108 @@ crossorigin="anonymous"
 
           let tr = $("<tr />").data("data", fields);
 
-          $(tr).append($("<td />").text(fields.barcode));
-          $(tr).append($("<td />").text(fields.product_name));
+          // $(tr).append($("<td />").text(fields.sl_no));
           $(tr).append($("<td />").html(`
             <div>
-              <button class="item-quantity" data-value="-1">-</button>
-              <input type="number" value="${fields.quantity}" class="quantity-field">
-              <button class="item-quantity" data-value="1">+</button>
+              <input type="number" value="${fields.slno}" class="slno-field>"
             </div>
           `));
-          $(tr).append($("<td />").text(fields.price));
-          $(tr).append($("<td />").text(fields.taxamount));
+          $(tr).append($("<td />").text(fields.barcode));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="text" value="${fields.product_name}" class="product-description-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.article_no}" class="article-no-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.hsn_no}" class="hsn-no-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="text" value="${fields.size}" class="size-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.qty}" class="qty-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.free}" class="free-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.p_Price}" class="p-Price-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.mrp}" class="mrp-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.tax}" class="tax-field">
+            </div>
+          `));
+          // $(tr).append($("<td /").html(`
+          // <div>
+          //   <input type="number" value="${fields.cess}" class="cess-field">
+          // </div>
+          // `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.disc1}" class="disc1-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.d_Amt1}" class="d_Amt1-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.disc2}" class="disc2-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.d_Amt2}" class="d_Amt2-field">
+            </div>
+          `));
+          // $(tr).append($("<td /").html(`
+          //   <div>
+          //     <input type="number" value="${fields.l_Cost}" class="l_cost-field">
+          //   </div>
+          // `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.tot_Cost}" class="tot-cost-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.s_Price}" class="s_Price-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.total}" class="total-field">
+            </div>
+          `));
+          $(tr).append($("<td />").html(`
+            <div>
+              <input type="number" value="${fields.marg}" class="marg-field">
+            </div>
+          `));
 
           $(tbody).append(tr);
 
@@ -440,26 +623,6 @@ crossorigin="anonymous"
 
           addProductToBill(fields);
         }
-
-        function updateQuantity(tr, value) {
-          let data = $(tr).data("data");
-          data.quantity = value;
-
-          if(data.quantity == 0) {
-            $(tr).remove();
-          } else {
-            $(tr).find('td').eq(2).html(`
-              <div>
-                <button class="item-quantity" data-value="-1">-</button>
-                <input type="number" value="${data.quantity}" class="quantity-field">
-                <button class="item-quantity" data-value="1">+</button>
-              </div>
-            `);
-          }
-
-          calculateSubTotal();
-          calculateTax();
-        }
         
         $("#barcode").on(
           "input",
@@ -489,20 +652,6 @@ crossorigin="anonymous"
             }
           })
         );
-
-        $('#bill-items').on('click', '.item-quantity', function() {
-          let tr = $(this).parents('tr')
-          let delta = Number($(this).data('value'))
-          let data = $(tr).data("data");
-          let value = Number(data.quantity) + delta
-          updateQuantity(tr, value)
-        })
-
-        $('#bill-items').on('change', '.quantity-field', function() {
-          let value = Number($(this).val())
-          let tr = $(this).parents('tr')
-          updateQuantity(tr, value)
-        })
 
         $('#apply-coupon').click(function() {
           const code = $('[name="coupon"]').val()
@@ -631,7 +780,7 @@ crossorigin="anonymous"
               data: JSON.stringify(data),
             },
             success: function (data) {
-              location.href = "{% url 'demo' %}?cart_id=" + encodeURIComponent(data.cart_id);
+              location.href = "{% url 'demo' %}?cart_id=" + data.cart_id;
             },
           });
         });

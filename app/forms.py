@@ -7,8 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.auth import password_validation
 from django.forms import ModelForm, TextInput
-
-from .models import Customer, Tax, User, Product, Image, Cart, OrderPlaced, Coupon, Color, Size, Supplier, Itemgroup, Category, Purchase, PaymentMode, PurchaseProduct
+from .models import *
 
 
 class CustomerRegistrationForm(UserCreationForm):

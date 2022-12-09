@@ -248,6 +248,11 @@
               <i class="bi bi-circle"></i><span>PURCHASE LIST</span>
             </a>
           </li>
+          <li>
+            <a href="{% url 'list-purchase-product' %}">
+              <i class="bi bi-circle"></i><span>PURCHASE PRODUCTS LIST</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Icons Nav -->
       <li class="nav-item">
@@ -274,7 +279,14 @@
           <i class="bi bi-grid"></i>
           <span>Create Bill</span>
         </a>
-      </li><!-- End Dashboard Nav -->
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'bill-purchase' %}">
+          <i class="bi bi-grid"></i>
+          <span>Purchase Bill</span>
+        </a>
+      </li>
+      <!-- End Dashboard Nav -->
     </ul>
 
   </aside><!-- End Sidebar-->

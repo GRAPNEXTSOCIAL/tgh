@@ -1,29 +1,9 @@
 from django.contrib import admin
-from .models import (
-    Color, 
-    Size, 
-    Supplier, 
-    Customer, 
-    Product, 
-    Cart, 
-    OrderPlaced, 
-    User, 
-    Image, 
-    Coupon, 
-    Tax, 
-    Itemgroup, 
-    Category, 
-    Purchase, 
-    PurchaseProduct, 
-    SalesRegister, 
-    PaymentMode, 
-
-)
+from .models import *
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
 
-# Register your models here.
 @admin.register(User)
 class UserModelAdmin(UserAdmin):
     list_display = [
@@ -223,12 +203,14 @@ class PurchaseProductModelAdmin(admin.ModelAdmin):
             'barcode', 
             'product_description', 
             'article_no', 
+            'hsn_no', 
             'size', 
             'qty', 
             'free', 
             'p_price', 
             'mrp', 
-            'tax', 
+            'tax',
+            'cess',  
             'disc1', 
             'd_Amt1', 
             'disc2', 
